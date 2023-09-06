@@ -1,0 +1,17 @@
+{
+  "name": "bookthingapp",
+  "version": "1.0.0",
+  "description": "Book review web app made using vanilla js, Express, node.js and Mongodb. Core features: Sign up/Sign in, Viewing book details, Adding book reviews, User marks book 'to read'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0"
+  }
+}
