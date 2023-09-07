@@ -14,9 +14,20 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.render("home");
+});
+
+app.get("/books", async (req, res) => {
+  const books = await Book.find({});
+  res.render("books/index", { books });
+});
+
+app.get("/books/:id", async (req, res) => {
+  const book = await Book.findById(req.params.id);
+  res.render("books/show", { book });
 });
 
 app.listen(3000, () => {

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books</title>
+  </head>
+  <body>
+    <h1>Browse the Most Popular Books</h1>
+    <div>
+      <%for(let book of books){%>
+      <li><a href="/books/<%=book._id%>"><%=book.title%></a></li>
+      <h3><%=book.author%></h3>
+      <%}%>
+    </div>
+  </body>
+</html>
