@@ -1,0 +1,28 @@
+.box{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+ }
+ 
+ .box>*{
+    flex: 1 1 1;
+    min-width: 12rem;
+ }
+ 
+ .img-thumbnail{
+     border:0;
+     height:18rem;
+ }
+ 
+ #btn-back-to-top {
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+    
+   }
+ 
+ /*Searchbox */
+ .is-hidden { 
+     display: none; 
+ }
+ 

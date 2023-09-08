@@ -1,8 +1,44 @@
 <% layout('./layouts/boilerplate') %>
-<h1>Browse the Most Popular Books</h1>
-<div>
-  <%for(let book of books){%>
-  <li><a href="/books/<%=book._id%>"><%=book.title%></a></li>
-  <h3><%=book.author%></h3>
-  <%}%>
+<link rel="stylesheet" href="/stylesheets/index.css" />
+<!--Scroll To Top-->
+<button type="button" class="btn btn-floating btn-lg" id="btn-back-to-top">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="40"
+    fill="#3cb371"
+    class="bi bi-arrow-up-circle-fill"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
+    />
+  </svg>
+</button>
+
+<div class="container">
+  <h1>Browse The Most Popular Books</h1>
+  <div class="box mb-3">
+    <div
+      class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mb-3"
+    >
+      <%for(let book of books){%>
+      <div class="col search-books">
+        <div class="card shadow h-100 mx-auto" style="width: 12rem">
+          <a href="/books/<%=book._id%>">
+            <img src="<%=book.image%>" class="img-thumbnail" alt="" />
+          </a>
+          <div class="card-body book-cards">
+            <a href="/books/<%=book._id%>">
+              <h5 class="card-title"><%=book.title%></h5>
+            </a>
+            <h6 class="card-subtitle"><%=book.author%></h6>
+          </div>
+        </div>
+      </div>
+      <%}%>
+    </div>
+  </div>
 </div>
+
+<script src="/javascripts/book-index.js"></script>
