@@ -56,6 +56,16 @@ app.get(
   })
 );
 
+app.delete(
+  "/books/:id",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    await Book.findByIdAndDelete(id);
+    res.redirect(`/books`);
+  })
+);
+
 app.post(
   "/books/:id/reviews",
   validateReview,

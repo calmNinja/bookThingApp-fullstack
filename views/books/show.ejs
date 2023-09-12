@@ -14,6 +14,11 @@
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
           </div>
+          <p>
+            <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
+                <button>DELETE</button>
+            </form>
+          </p>
         </div>
       </div>
       <div class="col-lg-8 mb-3">
@@ -112,7 +117,7 @@
             <p class="starability-result" data-rating="<%=review.rating%>">
               Rated: <%=review.rating%> stars
             </p>
-            <p>Review: <%=review.body%></p>
+            <p><%=review.body%></p>
             <form
               action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE"
               method="POST"
