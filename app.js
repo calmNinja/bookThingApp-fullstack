@@ -43,6 +43,13 @@ app.get(
   })
 );
 
+app.post(
+  "/books/:id/reviews",
+  catchAsync(async (req, res) => {
+    res.send("you have posted a review");
+  })
+);
+
 //Express Error Handling
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));

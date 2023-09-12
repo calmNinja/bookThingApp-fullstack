@@ -33,6 +33,33 @@
     <div class="row my-3">
       <div class="col-6 offset-4">
         <h2>Leave A Review</h2>
+        <form
+          action="/books/<%=book._id%>/reviews"
+          method="POST"
+          class="mb-3 validated-form"
+          novalidate
+        >
+          <div class="my-3">
+            <h4>rating goes here</h4>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="body">Review</label>
+            <textarea
+              class="form-control"
+              name="review[body]"
+              id="body"
+              cols="30"
+              rows="3"
+              required
+            ></textarea>
+            <div class="invalid-feedback">
+              You cannot submit an empty review!
+            </div>
+          </div>
+
+          <button class="btn btn-success">Submit</button>
+        </form>
       </div>
     </div>
   </div>
