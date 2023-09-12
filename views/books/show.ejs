@@ -106,6 +106,16 @@
 
           <button class="btn btn-success">Submit</button>
         </form>
+        <% for(let review of book.reviews) { %>
+        <div class="card shadow mb-3">
+          <div class="card-body">
+            <p class="starability-result" data-rating="<%=review.rating%>">
+              Rated: <%=review.rating%> stars
+            </p>
+            <p>Review: <%=review.body%></p>
+          </div>
+        </div>
+        <%}%>
       </div>
     </div>
   </div>
