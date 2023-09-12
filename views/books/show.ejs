@@ -13,12 +13,10 @@
           <div class="card-body text-center">
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
-          </div>
-          <p>
             <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
-                <button>DELETE</button>
+              <button class="btn btn-danger my-3">Delete</button>
             </form>
-          </p>
+          </div>
         </div>
       </div>
       <div class="col-lg-8 mb-3">
