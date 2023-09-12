@@ -1,5 +1,39 @@
 <% layout('./layouts/boilerplate') %>
-<h1><%= book.title %></h1>
-<h2><%= book.author %></h2>
-<h3>Description</h3>
-<p><%= book.description %></p>
+<div class="container">
+  <div class="book-wrapper">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 mb-3">
+        <div class="card shadow mb-3" style="width: 18rem">
+          <img
+            src="<%=book.image%>"
+            class="card-img-top"
+            alt="Cover Not Available"
+          />
+          <div class="card-body text-center">
+            <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
+            <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 mb-3">
+        <div class="card shadow w-100 mb-3" style="width: 18rem">
+          <div class="card-body">
+            <h3 class="card-title text-muted">
+              <%=book.title%> <span>by</span> <%=book.author%>
+            </h3>
+            <h4><%=book.series%></h4>
+            <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%></p>
+            <h6><%=book.genre%></h6>
+            <h4 class="card-title my-1">Description</h4>
+            <p class="card-body"><%=book.description%></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class="col-6 offset-4">
+        <h2>Leave A Review</h2>
+      </div>
+    </div>
+  </div>
+</div>

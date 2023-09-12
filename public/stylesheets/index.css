@@ -6,7 +6,6 @@
  
  .box>*{
     flex: 1 1 1;
-    min-width: 12rem;
  }
  
  .img-thumbnail{
@@ -18,11 +17,10 @@
      position: fixed;
      bottom: 20px;
      right: 20px;
-    
-   }
+ } 
  
  /*Searchbox */
  .is-hidden { 
-     display: none; 
+    display: none; 
  }
- 
+

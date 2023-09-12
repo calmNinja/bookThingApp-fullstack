@@ -26,15 +26,12 @@ function liveSearch() {
   let cards = document.querySelectorAll(".search-books");
 
   let search_query = document.getElementById("searchbox").value;
-
-  if (
-    cards[i].innerText
-      .toLowerCase()
-
-      .includes(search_query.toLowerCase())
-  ) {
-    cards[i].classList.remove("is-hidden");
-  } else {
-    cards[i].classList.add("is-hidden");
-  }
+  cards.forEach((card) => {
+    let cardText = card.innerText.toLowerCase();
+    if (cardText.includes(search_query)) {
+      card.classList.remove("is-hidden");
+    } else {
+      card.classList.add("is-hidden");
+    }
+  });
 }

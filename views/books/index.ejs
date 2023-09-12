@@ -17,14 +17,14 @@
 </button>
 
 <div class="container">
-  <h1>Browse The Most Popular Books</h1>
+  <h1 class="mb-5">Browse The Most Popular Books</h1>
   <div class="box mb-3">
     <div
       class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mb-3"
     >
       <%for(let book of books){%>
       <div class="col search-books">
-        <div class="card shadow h-100 mx-auto" style="width: 12rem">
+        <div class="card shadow h-100 mx-auto" style="max-width: 12rem">
           <a href="/books/<%=book._id%>">
             <img src="<%=book.image%>" class="img-thumbnail" alt="" />
           </a>
