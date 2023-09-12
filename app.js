@@ -2,10 +2,12 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const Joi = require("joi");
 const methodOverride = require("method-override");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 const Book = require("./models/book");
+const Review = require("./models/review");
 
 mongoose.connect("mongodb://127.0.0.1/bookthingapp");
 const db = mongoose.connection;
@@ -20,7 +22,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
-//app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
@@ -46,7 +48,12 @@ app.get(
 app.post(
   "/books/:id/reviews",
   catchAsync(async (req, res) => {
-    res.send("you have posted a review");
+    const book = await Book.findById(req.params.id);
+    const review = new Review(req.body.review);
+    book.reviews.push(review);
+    await review.save();
+    await book.save();
+    res.redirect(`/books/${book._id}`);
   })
 );
 
