@@ -113,6 +113,12 @@
               Rated: <%=review.rating%> stars
             </p>
             <p>Review: <%=review.body%></p>
+            <form
+              action="/books/<%=book._id%>/reviews/<%=review._id%>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
+            </form>
           </div>
         </div>
         <%}%>
