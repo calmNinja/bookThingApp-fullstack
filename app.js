@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const { reviewSchema } = require("./schemas.js");
 const Joi = require("joi");
 const methodOverride = require("method-override");
 const catchAsync = require("./utils/catchAsync");
@@ -25,6 +26,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -47,6 +58,7 @@ app.get(
 
 app.post(
   "/books/:id/reviews",
+  validateReview,
   catchAsync(async (req, res) => {
     const book = await Book.findById(req.params.id);
     const review = new Review(req.body.review);
