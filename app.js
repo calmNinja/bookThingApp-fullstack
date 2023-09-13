@@ -36,10 +36,12 @@ const validateReview = (req, res, next) => {
   }
 };
 
+//Route to Home Page
 app.get("/", (req, res) => {
   res.render("home");
 });
 
+//Route to Book Index
 app.get(
   "/books",
   catchAsync(async (req, res) => {
@@ -48,6 +50,7 @@ app.get(
   })
 );
 
+//Route to Single Book Show Page
 app.get(
   "/books/:id",
   catchAsync(async (req, res) => {
@@ -56,6 +59,7 @@ app.get(
   })
 );
 
+//Route to delete a book - for admin only TBD
 app.delete(
   "/books/:id",
   catchAsync(async (req, res) => {
@@ -66,6 +70,7 @@ app.delete(
   })
 );
 
+//Create Book Review
 app.post(
   "/books/:id/reviews",
   validateReview,
@@ -79,6 +84,19 @@ app.post(
   })
 );
 
+//Edit Book Review
+app.get(
+  "/books/:id/reviews/:reviewId/edit",
+  catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    const book = await Book.findById(id);
+    const review = await Review.findById(reviewId);
+    res.render("reviews/edit", { book, review });
+  })
+);
+//Update Edited Review - TBD
+
+//Delete Book Review
 app.delete(
   "/books/:id/reviews/:reviewId",
   catchAsync(async (req, res) => {
