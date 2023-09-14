@@ -3,6 +3,7 @@ const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const Book = require("../models/book");
+const { isLoggedIn } = require("../middleware");
 
 //Route to Book Index
 router.get(
@@ -31,6 +32,7 @@ router.get(
 //Route to delete a book - for admin only TBD
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     console.log(id);
