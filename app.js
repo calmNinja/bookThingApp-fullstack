@@ -7,13 +7,19 @@ const Joi = require("joi");
 const methodOverride = require("method-override");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
+
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+
 const Book = require("./models/book");
 const Review = require("./models/review");
+const User = require("./models/user");
 
 const booksRoutes = require("./routes/books");
 const reviewsRoutes = require("./routes/reviews");
+const usersRoutes = require("./routes/users");
 
 mongoose.connect("mongodb://127.0.0.1/bookthingapp");
 const db = mongoose.connection;
@@ -45,11 +51,19 @@ const sessionConfig = {
   },
 };
 
+//Authentication using passport
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
-  // res.locals.currentUser = req.user;
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
@@ -57,6 +71,7 @@ app.use((req, res, next) => {
 
 app.use("/books", booksRoutes);
 app.use("/books/:id/reviews", reviewsRoutes);
+app.use("/", usersRoutes);
 
 //Route to Home Page
 app.get("/", (req, res) => {

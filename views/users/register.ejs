@@ -1,0 +1,104 @@
+<% layout('layouts/boilerplate')%>
+<style>
+  #searchbox {
+    display: none;
+  }
+</style>
+<div class="container .d-flex justify-content-center align-items-center mb-4">
+  <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h2 class="card-title mb-3">Create An Account</h2>
+        <form
+          action="/register"
+          method="POST"
+          class="validated-form"
+          novalidate
+        >
+          <div class="form-group mb-3">
+            <label class="form-label" for="firstname">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstname"
+              name="firstname"
+              placeholder="Enter your first name"
+              autofocus
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="lastname">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastname"
+              name="lastname"
+              placeholder="Enter your last name"
+              autofocus
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter a username"
+              autofocus
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="email">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="jane@gmail.com"
+              required
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="avatar">Avatar url</label>
+            <input
+              type="text"
+              class="form-control"
+              id="avatar"
+              name="avatar"
+              placeholder="Enter your avatar url"
+              autofocus
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter a Password"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="form-group text-center mb-3">
+            <button class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
