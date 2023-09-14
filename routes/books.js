@@ -17,6 +17,13 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const book = await Book.findById(req.params.id).populate("reviews");
+    if (!book) {
+      req.flash(
+        "error",
+        "Sorry :( The title you are looking for is no longer available.."
+      );
+      return res.redirect("/books");
+    }
     res.render("books/show", { book });
   })
 );
