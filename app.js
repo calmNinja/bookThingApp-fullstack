@@ -7,6 +7,7 @@ const Joi = require("joi");
 const methodOverride = require("method-override");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
+const session = require("express-session");
 const Book = require("./models/book");
 const Review = require("./models/review");
 
@@ -28,6 +29,22 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+const sessionConfig = {
+  // store,
+  name: "cookieThing",
+  secret: "tempsecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    //secure: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+
+app.use(session(sessionConfig));
 
 app.use("/books", booksRoutes);
 app.use("/books/:id/reviews", reviewsRoutes);
