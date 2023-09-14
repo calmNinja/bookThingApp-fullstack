@@ -17,8 +17,11 @@ router.post(
         req.body;
       const user = new User({ email, username, firstname, lastname, avatar });
       const registeredUser = await User.register(user, password);
-      req.flash("success", "Welcome to BookThing!");
-      res.redirect("/books");
+      req.login(registeredUser, (err) => {
+        if (err) return next(err);
+        req.flash("success", `Hey ${firstname}, Welcome to BookThing!`);
+        res.redirect("/books");
+      });
     } catch (e) {
       req.flash("error", e.message);
       res.redirect("register");
