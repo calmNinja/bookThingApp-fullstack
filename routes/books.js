@@ -1,47 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const books = require("../controllers/books");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const Book = require("../models/book");
 const { isLoggedIn } = require("../middleware");
 
 //Route to Book Index
-router.get(
-  "/",
-  catchAsync(async (req, res) => {
-    const books = await Book.find({});
-    res.render("books/index", { books });
-  })
-);
+router.get("/", catchAsync(books.index));
 //Route to Single Book Show Page
-router.get(
-  "/:id",
-  catchAsync(async (req, res) => {
-    const book = await Book.findById(req.params.id).populate({
-      path: "reviews",
-      populate: { path: "author" },
-    });
-    if (!book) {
-      req.flash(
-        "error",
-        "Sorry :( The title you are looking for is no longer available.."
-      );
-      return res.redirect("/books");
-    }
-    res.render("books/show", { book });
-  })
-);
+router.get("/:id", catchAsync(books.bookDescription));
 
 //Route to delete a book - for admin only TBD
-router.delete(
-  "/:id",
-  isLoggedIn,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    console.log(id);
-    await Book.findByIdAndDelete(id);
-    res.redirect(`/books`);
-  })
-);
+router.delete("/:id", isLoggedIn, catchAsync(books.deleteBook));
 
 module.exports = router;

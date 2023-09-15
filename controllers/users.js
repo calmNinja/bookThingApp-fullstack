@@ -1,0 +1,48 @@
+const User = require("../models/user");
+
+//Render User Registration Form
+module.exports.renderRegister = (req, res) => {
+  res.render("users/register");
+};
+
+//Register User
+module.exports.register = async (req, res, next) => {
+  try {
+    const { email, username, password, firstname, lastname, avatar } = req.body;
+    const user = new User({ email, username, firstname, lastname, avatar });
+    const registeredUser = await User.register(user, password);
+    req.login(registeredUser, (err) => {
+      if (err) return next(err);
+      req.flash("success", `Hey ${firstname}, Welcome to BookThing!`);
+      res.redirect("/books");
+    });
+  } catch (e) {
+    req.flash("error", e.message);
+    res.redirect("register");
+  }
+};
+
+//Render User Login Form
+module.exports.renderLogin = (req, res) => {
+  res.render("users/login");
+};
+
+//Log in the User
+module.exports.loginUser = (req, res) => {
+  const { username } = req.body;
+  const { firstname, _id } = req.user;
+  req.flash("success", `Welcome back, ${firstname}!`);
+  res.redirect("/");
+  //   res.redirect(`/users/${_id}`);
+};
+
+//Log out User
+module.exports.logoutUser = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "You've been logged out!");
+    res.redirect("/");
+  });
+};
