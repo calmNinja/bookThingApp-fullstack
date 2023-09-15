@@ -36,6 +36,7 @@
     </div>
     <div class="row my-3">
       <div class="col-6 offset-4">
+        <%if(currentUser){%>
         <h2>Leave A Review</h2>
         <form
           action="/books/<%=book._id%>/reviews"
@@ -109,13 +110,17 @@
 
           <button class="btn btn-success">Submit</button>
         </form>
-        <% for(let review of book.reviews) { %>
+        <%}%> <% for(let review of book.reviews) { %>
         <div class="card shadow mb-3">
           <div class="card-body">
+            <h5 class="card-title">
+              <a href="#"><%=review.author.username%></a>
+            </h5>
             <p class="starability-result" data-rating="<%=review.rating%>">
               Rated: <%=review.rating%> stars
             </p>
             <p><%=review.body%></p>
+            <%if(currentUser && review.author.equals(currentUser._id)){%>
             <form
               class="d-inline"
               action="/books/<%=book._id%>/reviews/<%=review._id%>/edit"
@@ -130,6 +135,7 @@
             >
               <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
             </form>
+            <%}%>
           </div>
         </div>
         <% } %>

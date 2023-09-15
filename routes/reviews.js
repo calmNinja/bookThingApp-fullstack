@@ -5,24 +5,17 @@ const ExpressError = require("../utils/ExpressError");
 const Book = require("../models/book");
 const Review = require("../models/review");
 const { reviewSchema } = require("../schemas.js");
-
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
+const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 
 //Create Book Review
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   catchAsync(async (req, res) => {
     const book = await Book.findById(req.params.id);
     const review = new Review(req.body.review);
+    review.author = req.user._id;
     book.reviews.push(review);
     await review.save();
     await book.save();
@@ -34,6 +27,8 @@ router.post(
 //Edit Book Review
 router.get(
   "/:reviewId/edit",
+  isLoggedIn,
+  isReviewAuthor,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     const book = await Book.findById(id);
@@ -47,6 +42,8 @@ router.get(
 //Delete Book Review
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Book.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
