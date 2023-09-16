@@ -10,6 +10,9 @@ module.exports.bookDescription = async (req, res) => {
     path: "reviews",
     populate: { path: "author" },
   });
+  const book_genres = book.genre[0]
+    .replace(/,/g, " | ")
+    .replace(/[\[\]']+/g, "");
   if (!book) {
     req.flash(
       "error",
@@ -17,7 +20,7 @@ module.exports.bookDescription = async (req, res) => {
     );
     return res.redirect("/books");
   }
-  res.render("books/show", { book });
+  res.render("books/show", { book, book_genres });
 };
 
 module.exports.deleteBook = async (req, res) => {
