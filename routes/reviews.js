@@ -11,20 +11,16 @@ const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 //Create Book Review
 router.post("/", isLoggedIn, validateReview, catchAsync(reviews.createReview));
 
-//Edit Book Review
+//Edit Book Review Form
 router.get(
   "/:reviewId/edit",
   isLoggedIn,
   isReviewAuthor,
-  catchAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    const book = await Book.findById(id);
-    const review = await Review.findById(reviewId);
-    res.render("reviews/edit", { book, review });
-  })
+  catchAsync(reviews.RenderReviewEditForm)
 );
 
-//Update Edited Review - TBD
+//Update Book Review
+router.put("/:reviewId", isLoggedIn, catchAsync(reviews.updateReview));
 
 //Delete Book Review
 router.delete(

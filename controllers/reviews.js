@@ -19,3 +19,23 @@ module.exports.deleteReview = async (req, res) => {
   req.flash("success", "Your review has been deleted!");
   res.redirect(`/books/${id}`);
 };
+
+module.exports.RenderReviewEditForm = async (req, res) => {
+  const { id, reviewId } = req.params;
+  const book = await Book.findById(id);
+  const review = await Review.findById(reviewId);
+  if (!review) {
+    req.flash("error", "Cannot find that review!");
+    return res.redirect("/books");
+  }
+  res.render("reviews/edit", { book, review });
+};
+
+module.exports.updateReview = async (req, res) => {
+  const { id, reviewId } = req.params;
+  const review = await Review.findByIdAndUpdate(reviewId, req.body.review, {
+    new: true,
+  });
+  req.flash("success", "Successfully updated review!");
+  res.redirect(`/books/${id}`);
+};
