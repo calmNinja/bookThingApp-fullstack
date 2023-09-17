@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   avatar: String,
   firstname: String,
   lastname: String,
+  isAdmin: { type: Boolean, default: false },
 });
 
 UserSchema.plugin(passportLocalMongoose);

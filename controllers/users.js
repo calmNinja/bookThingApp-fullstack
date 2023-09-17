@@ -8,8 +8,27 @@ module.exports.renderRegister = (req, res) => {
 //Register User
 module.exports.register = async (req, res, next) => {
   try {
-    const { email, username, password, firstname, lastname, avatar } = req.body;
-    const user = new User({ email, username, firstname, lastname, avatar });
+    const {
+      email,
+      username,
+      password,
+      firstname,
+      lastname,
+      avatar,
+      adminCode,
+    } = req.body;
+
+    //check if the user registered adminCode matched the adminCode in the .env
+    const isAdmin = adminCode === process.env.ADMIN_PASSWORD;
+    const user = new User({
+      email,
+      username,
+      firstname,
+      lastname,
+      avatar,
+      isAdmin,
+    });
+    console.log(`From the env file: ${process.env.ADMIN_PASSWORD}`);
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, (err) => {
       if (err) return next(err);

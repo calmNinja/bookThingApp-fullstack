@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate')%>
+<style>
+  #avatar-img {
+    height: 12.5em;
+    width: 12.5em;
+  }
+</style>
+
+<div class="container">
+  <h2 class="text-primary"><%=foundUser.firstname%> <%=foundUser.lastname%></h2>
+  <img
+    class="img-thumbnail my-3"
+    id="avatar-img"
+    src="<%=foundUser.avatar%>"
+    alt="user display image"
+  />
+  <h4>Books read: TBD</h4>
+</div>
