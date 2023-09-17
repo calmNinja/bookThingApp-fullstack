@@ -15,8 +15,8 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.isReviewAuthor = async (req, res, next) => {
   const { id, reviewId } = req.params;
   const review = await Review.findById(reviewId);
-  if (!review.author.equals(req.user._id)) {
-    req.flash("error", "You do not have the permission to delete the review");
+  if (!(review.author.equals(req.user._id) || req.user.isAdmin)) {
+    req.flash("error", "You do not have the permission to modify this review");
     return res.redirect(`/books/${id}`);
   }
   next();

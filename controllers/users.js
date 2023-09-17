@@ -28,7 +28,6 @@ module.exports.register = async (req, res, next) => {
       avatar,
       isAdmin,
     });
-    console.log(`From the env file: ${process.env.ADMIN_PASSWORD}`);
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, (err) => {
       if (err) return next(err);
