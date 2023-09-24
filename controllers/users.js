@@ -64,3 +64,19 @@ module.exports.logoutUser = (req, res, next) => {
     res.redirect("/");
   });
 };
+
+//Show User Profile
+module.exports.showUserProfile = async (req, res) => {
+  try {
+    const foundUser = await User.findById(req.params.id);
+    if (!foundUser) {
+      req.flash("error", "Couldn't find the user :( ");
+      res.redirect("/");
+    } else {
+      res.render("users/userProfile", { foundUser });
+    }
+  } catch (err) {
+    req.flash("error", "An error occurred while finding the user");
+    res.redirect("/");
+  }
+};

@@ -25,4 +25,7 @@ router.post(
 //User Logout
 router.get("/logout", users.logoutUser);
 
+//User Profile
+router.get("/users/:id", catchAsync(users.showUserProfile));
+
 module.exports = router;
