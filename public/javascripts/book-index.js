@@ -24,14 +24,22 @@ function backToTop() {
 document.getElementById("searchbox").addEventListener("input", liveSearch);
 function liveSearch() {
   let cards = document.querySelectorAll(".search-books");
-
   let search_query = document.getElementById("searchbox").value;
+  let noResultsMessage = document.getElementById("no-results-message");
+  let hasResults = false;
+
   cards.forEach((card) => {
     let cardText = card.innerText.toLowerCase();
     if (cardText.includes(search_query)) {
       card.classList.remove("is-hidden");
+      hasResults = true;
     } else {
       card.classList.add("is-hidden");
     }
   });
+  if (hasResults) {
+    noResultsMessage.style.display = "none";
+  } else {
+    noResultsMessage.style.display = "block";
+  }
 }
