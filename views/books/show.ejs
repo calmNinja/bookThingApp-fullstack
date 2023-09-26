@@ -120,7 +120,9 @@
         >
         <%} %>
         <h3 class="mt-4 mb-3">Reviews</h3>
-        <% for(let review of book.reviews) { %>
+        <% if (book.reviews.length === 0) { %>
+        <p>No reviews for this book yet. Be the first to post!</p>
+        <% } else { %> <% for(let review of book.reviews) { %>
         <div class="card shadow mb-3">
           <div class="card-body">
             <h5 class="card-title">
@@ -151,7 +153,7 @@
             <%}%>
           </div>
         </div>
-        <% } %>
+        <% } %> <% } %>
       </div>
     </div>
   </div>

@@ -42,10 +42,8 @@ module.exports.validateReview = (req, res, next) => {
 };
 
 module.exports.checkReturnTo = (req, res, next) => {
-  console.log("middleware here - checkReturnTo");
   if (req.session.returnTo) {
     res.locals.returnTo = req.session.returnTo;
-    console.log("yes res.locals has the returnTo");
   }
   next();
 };

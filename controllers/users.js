@@ -45,9 +45,6 @@ module.exports.register = async (req, res, next) => {
 //Render User Login Form
 module.exports.renderLogin = (req, res) => {
   if (req.query.returnTo) {
-    console.log(
-      "yes i have req query returnTo and assigning it to req session"
-    );
     req.session.returnTo = req.query.returnTo;
   }
   res.render("users/login");
