@@ -112,7 +112,13 @@
 
           <button class="btn btn-success">Submit</button>
         </form>
-        <%}%>
+        <%} else {%>
+        <a
+          href="/login?returnTo=/books/<%= book._id %>"
+          class="btn btn-lg btn-primary"
+          >Leave a Review</a
+        >
+        <%} %>
         <h3 class="mt-4 mb-3">Reviews</h3>
         <% for(let review of book.reviews) { %>
         <div class="card shadow mb-3">

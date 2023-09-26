@@ -44,6 +44,12 @@ module.exports.register = async (req, res, next) => {
 
 //Render User Login Form
 module.exports.renderLogin = (req, res) => {
+  if (req.query.returnTo) {
+    console.log(
+      "yes i have req query returnTo and assigning it to req session"
+    );
+    req.session.returnTo = req.query.returnTo;
+  }
   res.render("users/login");
 };
 
@@ -52,8 +58,8 @@ module.exports.loginUser = (req, res) => {
   const { username } = req.body;
   const { firstname, _id } = req.user;
   req.flash("success", `Welcome back, ${firstname}!`);
-  res.redirect("/");
-  //   res.redirect(`/users/${_id}`);
+  redirectUrl = res.locals.returnTo || "/books";
+  res.redirect(redirectUrl);
 };
 
 //Log out User
