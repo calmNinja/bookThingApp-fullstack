@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Review = require("../models/review");
+const Book = require("../models/book");
 
 //Render User Registration Form
 module.exports.renderRegister = (req, res) => {
@@ -76,8 +77,8 @@ module.exports.showUserProfile = async (req, res) => {
     } else {
       const userReviews = await Review.find({
         author: foundUser._id,
-      });
-      if (!userReviews) {
+      }).populate("book");
+      if (!userReviews || userReviews.length === 0) {
         console.log("No user reviews found for this user.");
       }
       res.render("users/userProfile", { foundUser, userReviews });
@@ -87,6 +88,6 @@ module.exports.showUserProfile = async (req, res) => {
       "error",
       "An error occurred while finding the user or their reviews"
     );
-    res.redirect("/");
+    res.redirect("/books");
   }
 };

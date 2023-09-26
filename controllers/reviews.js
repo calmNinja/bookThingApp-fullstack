@@ -2,14 +2,26 @@ const Book = require("../models/book");
 const Review = require("../models/review");
 
 module.exports.createReview = async (req, res) => {
-  const book = await Book.findById(req.params.id);
-  const review = new Review(req.body.review);
-  review.author = req.user._id;
-  book.reviews.push(review);
-  await review.save();
-  await book.save();
-  req.flash("success", "Successfully posted your review!");
-  res.redirect(`/books/${book._id}`);
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+      req.flash("error", "Book not found");
+      return res.redirect("/books");
+    }
+    console.log(`Review posted for book: ${book.title}`);
+    const review = new Review(req.body.review);
+    review.book = book;
+    review.author = req.user._id;
+    book.reviews.push(review);
+    await review.save();
+    await book.save();
+    req.flash("success", "Successfully posted your review!");
+    res.redirect(`/books/${book._id}`);
+  } catch {
+    console.error("Error creating review:", err);
+    req.flash("error", "An error occurred while creating the review");
+    res.redirect("/books");
+  }
 };
 
 module.exports.deleteReview = async (req, res) => {

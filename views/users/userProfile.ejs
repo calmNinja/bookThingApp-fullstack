@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
 <style>
   #avatar-img {
     height: 12.5em;
@@ -14,21 +15,22 @@
     src="<%=foundUser.avatar%>"
     alt="user display image"
   />
-  <h4>Books read: TBD</h4>
+  <h3>Bookshelf: TBD</h3>
   <h3>User Reviews:</h3>
-  <% if (userReviews && userReviews.length > 0) { %>
-  <ul>
-    <% userReviews.forEach((review) => { %>
-
-    <li>
-      <% console.log("Review Object:", review); console.log("Review Rating:",
-      review.rating); console.log("Review Body:", review.body); %>
-
-      <strong>Rating: <%= review.rating %></strong>
+  <% if (userReviews && userReviews.length > 0) { %> <%
+  userReviews.forEach((review) => { %>
+  <div class="card shadow mb-3">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="/books/<%= review.book._id %>"><%= review.book.title %></a>
+      </h5>
+      <p class="starability-result" data-rating="<%= review.rating %>">
+        <%= review.rating %>
+      </p>
       <p><%= review.body %></p>
-    </li>
-    <% }); %> <% } else { %>
-    <p>No reviews available for this user.</p>
-    <% } %>
-  </ul>
+    </div>
+  </div>
+  <% }); %> <% } else { %>
+  <p>No reviews available for this user.</p>
+  <% } %>
 </div>
