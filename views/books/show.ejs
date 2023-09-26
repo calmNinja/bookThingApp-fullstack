@@ -25,7 +25,7 @@
         <div class="card shadow w-100 mb-3" style="width: 18rem">
           <div class="card-body">
             <h3 class="card-title text-muted">
-              <%=book.title%> <span>by</span> <%=book.author%>
+              <%=book.title%> by <%=book.author%>
             </h3>
             <h4><%=book.series%></h4>
             <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%></p>
@@ -38,7 +38,7 @@
     </div>
     <div class="row my-3">
       <div class="col-6 offset-4">
-        <%if(currentUser){%>
+        <% if (!userHasReviewed && currentUser) { %>
         <h2>Leave A Review</h2>
         <form
           action="/books/<%=book._id%>/reviews"
@@ -112,7 +112,9 @@
 
           <button class="btn btn-success">Submit</button>
         </form>
-        <%}%> <% for(let review of book.reviews) { %>
+        <%}%>
+        <h3 class="mt-4 mb-3">Reviews</h3>
+        <% for(let review of book.reviews) { %>
         <div class="card shadow mb-3">
           <div class="card-body">
             <h5 class="card-title">

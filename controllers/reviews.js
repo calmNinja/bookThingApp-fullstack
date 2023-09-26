@@ -8,7 +8,6 @@ module.exports.createReview = async (req, res) => {
       req.flash("error", "Book not found");
       return res.redirect("/books");
     }
-    console.log(`Review posted for book: ${book.title}`);
     const review = new Review(req.body.review);
     review.book = book;
     review.author = req.user._id;

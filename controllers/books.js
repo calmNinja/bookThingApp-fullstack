@@ -20,7 +20,14 @@ module.exports.bookDescription = async (req, res) => {
     );
     return res.redirect("/books");
   }
-  res.render("books/show", { book, book_genres });
+  //Check if user has already reviewed the book
+  let userHasReviewed = false;
+  if (req.isAuthenticated()) {
+    userHasReviewed = book.reviews.some((review) => {
+      return review.author.equals(req.user._id);
+    });
+  }
+  res.render("books/show", { book, book_genres, userHasReviewed });
 };
 
 module.exports.deleteBook = async (req, res) => {
