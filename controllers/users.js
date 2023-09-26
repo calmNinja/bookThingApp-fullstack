@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Review = require("../models/review");
 
 //Render User Registration Form
 module.exports.renderRegister = (req, res) => {
@@ -73,10 +74,19 @@ module.exports.showUserProfile = async (req, res) => {
       req.flash("error", "Couldn't find the user :( ");
       res.redirect("/");
     } else {
-      res.render("users/userProfile", { foundUser });
+      const userReviews = await Review.find({
+        author: foundUser._id,
+      });
+      if (!userReviews) {
+        console.log("No user reviews found for this user.");
+      }
+      res.render("users/userProfile", { foundUser, userReviews });
     }
   } catch (err) {
-    req.flash("error", "An error occurred while finding the user");
+    req.flash(
+      "error",
+      "An error occurred while finding the user or their reviews"
+    );
     res.redirect("/");
   }
 };

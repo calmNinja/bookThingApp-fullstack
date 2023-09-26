@@ -15,4 +15,20 @@
     alt="user display image"
   />
   <h4>Books read: TBD</h4>
+  <h3>User Reviews:</h3>
+  <% if (userReviews && userReviews.length > 0) { %>
+  <ul>
+    <% userReviews.forEach((review) => { %>
+
+    <li>
+      <% console.log("Review Object:", review); console.log("Review Rating:",
+      review.rating); console.log("Review Body:", review.body); %>
+
+      <strong>Rating: <%= review.rating %></strong>
+      <p><%= review.body %></p>
+    </li>
+    <% }); %> <% } else { %>
+    <p>No reviews available for this user.</p>
+    <% } %>
+  </ul>
 </div>
