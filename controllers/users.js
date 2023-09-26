@@ -81,9 +81,6 @@ module.exports.showUserProfile = async (req, res) => {
       const userReviews = await Review.find({
         author: foundUser._id,
       }).populate("book");
-      if (!userReviews || userReviews.length === 0) {
-        console.log("No user reviews found for this user.");
-      }
       res.render("users/userProfile", { foundUser, userReviews });
     }
   } catch (err) {
