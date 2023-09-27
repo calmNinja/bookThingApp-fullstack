@@ -31,3 +31,6 @@ router.get("/logout", users.logoutUser);
 router.get("/users/:id", catchAsync(users.showUserProfile));
 
 module.exports = router;
+
+//Add books to User BookShelf
+router.post("/users/:id/bookshelf/:bookId", catchAsync(users.addToBookshelf));

@@ -91,3 +91,26 @@ module.exports.showUserProfile = async (req, res) => {
     res.redirect("/books");
   }
 };
+
+//Add Books to BookShelf in UserProfile
+module.exports.addToBookshelf = async (req, res) => {
+  const userId = req.user._id;
+  const bookId = req.params.bookId;
+  try {
+    const user = await User.findById(userId);
+    const existingBook = user.bookshelf.find(
+      (item) => item.book.toString() === bookId
+    );
+    if (!existingBook) {
+      user.bookshelf.push({ book: bookId, isShelved: true });
+      await user.save();
+      req.flash("success", "Successfully added to bookshelf.");
+      res.redirect("/");
+    } else {
+      req.flash("error", "This Book has already been shelved!");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

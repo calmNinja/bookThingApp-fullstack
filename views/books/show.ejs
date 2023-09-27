@@ -13,7 +13,27 @@
           <div class="card-body text-center">
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
-            <%if(currentUser && currentUser.isAdmin){%>
+            <%if(currentUser){%>
+            <form
+              action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>"
+              method="POST"
+            >
+              <button
+                class="btn btn-warning my-3"
+                id="want-to-read-btn"
+                data-book-id="<%= book._id %>"
+              >
+                Want To Read
+              </button>
+            </form>
+            <%} else {%>
+            <a
+              href="/login?returnTo=/books/<%= book._id %>"
+              class="btn btn-warning my-3"
+              >Want To Read</a
+            >
+
+            <%}%> <%if(currentUser && currentUser.isAdmin){%>
             <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
               <button class="btn btn-danger my-3">Delete</button>
             </form>
