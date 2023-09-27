@@ -16,9 +16,18 @@
     alt="user display image"
   />
   <h3>Bookshelf:</h3>
-  <% if (currentUser && currentUser._id.equals(foundUser._id)) { %>
+  <ul>
+    <% if (foundUser.bookshelf.length > 0) { %> <%
+    foundUser.bookshelf.forEach((item) => { %>
+    <li><%= item.book.title %></li>
+    <% }); %> <% } else { %>
+    <p>Your bookshelf is currently empty.</p>
+    <% } %>
+  </ul>
+  <% if (currentUser && currentUser._id.equals(foundUser._id)) { %> <% if
+  (foundUser.bookshelf.length === 0) { %>
   <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
-  <% } else { %>
+  <% } %> <% } else { %>
   <p>This user's bookshelf is currently empty. Check back later!</p>
   <% } %>
   <h3>Reviewed:</h3>

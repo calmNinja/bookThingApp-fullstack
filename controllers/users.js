@@ -73,7 +73,9 @@ module.exports.logoutUser = (req, res, next) => {
 //Show User Profile
 module.exports.showUserProfile = async (req, res) => {
   try {
-    const foundUser = await User.findById(req.params.id);
+    const foundUser = await User.findById(req.params.id).populate(
+      "bookshelf.book"
+    );
     if (!foundUser) {
       req.flash("error", "Couldn't find the user :( ");
       res.redirect("/");
@@ -105,9 +107,10 @@ module.exports.addToBookshelf = async (req, res) => {
       user.bookshelf.push({ book: bookId, isShelved: true });
       await user.save();
       req.flash("success", "Successfully added to bookshelf.");
-      res.redirect("/");
+      res.redirect(`/users/${userId}`);
     } else {
       req.flash("error", "This Book has already been shelved!");
+      res.redirect(`/books/${bookId}`);
     }
   } catch (error) {
     console.error(error);
