@@ -5,6 +5,23 @@
     height: 12.5em;
     width: 12.5em;
   }
+  .book-card .card {
+    max-width: 50%;
+    max-height: fit-content;
+    padding: 0;
+  }
+  .book-card .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-card img {
+    margin: 0;
+    width: 15rem;
+    height: 12rem;
+    /* max-height: 10rem; */
+    /* object-fit: cover; */
+  }
 </style>
 
 <div class="container mb-5">
@@ -15,22 +32,33 @@
     src="<%=foundUser.avatar%>"
     alt="user display image"
   />
-  <h3>Bookshelf:</h3>
-  <ul>
+  <h3 class="mt-5">Bookshelf:</h3>
+  <div class="row">
     <% if (foundUser.bookshelf.length > 0) { %> <%
     foundUser.bookshelf.forEach((item) => { %>
-    <li><%= item.book.title %></li>
+    <div class="col-md-3 book-card">
+      <div class="card shadow">
+        <div class="card-body">
+          <a href="/books/<%= item.book._id %>">
+            <img
+              src="<%= item.book.image %>"
+              alt="<%= item.book.title %> Image"
+              class="img-thumbnail"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
     <% }); %> <% } else { %>
     <p>Your bookshelf is currently empty.</p>
+    <% } %> <% if (currentUser && currentUser._id.equals(foundUser._id)) { %> <%
+    if (foundUser.bookshelf.length === 0) { %>
+    <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
+    <% } %> <% } else { %>
+    <p>This user's bookshelf is currently empty. Check back later!</p>
     <% } %>
-  </ul>
-  <% if (currentUser && currentUser._id.equals(foundUser._id)) { %> <% if
-  (foundUser.bookshelf.length === 0) { %>
-  <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
-  <% } %> <% } else { %>
-  <p>This user's bookshelf is currently empty. Check back later!</p>
-  <% } %>
-  <h3>Reviewed:</h3>
+  </div>
+  <h3 class="mt-5">Reviewed:</h3>
   <% if (userReviews && userReviews.length > 0) { %> <%
   userReviews.forEach((review) => { %>
   <div class="card shadow mb-3">
