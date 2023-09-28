@@ -124,12 +124,31 @@ module.exports.removeFromBookshelf = async (req, res) => {
   const userId = req.params.id;
   const bookId = req.params.bookId;
   try {
+    const user = await User.findById(userId);
+    //check if the book exists in the user's bookshelf and get it's index in the array
+    const bookIndex = user.bookshelf.findIndex(
+      (item) => item.book.toString() === bookId
+    );
+    //if bookshelf not empty
+    if (bookIndex !== -1) {
+      //set the flag back to false
+      user.bookshelf[bookIndex].isShelved = false;
+      //remove the book
+      user.bookshelf.splice(bookIndex, 1);
+      await user.save();
+      req.flash("success", "Successfully removed book from Bookshelf.");
+      res.redirect(`/books/${bookId}`);
+      // res.redirect(`/users/${userId}`);
+    } else {
+      req.flash("error", "Book not found in your bookshelf!");
+      res.redirect(`/users/${userId}`);
+    }
   } catch (error) {
     console.error(error);
     req.flash(
       "error",
-      "Something went wrong while trying to remove book from bookshelf."
+      "An error occured while trying to remove book from bookshelf."
     );
-    res.redirect("/books");
+    res.redirect(`/users/${userId}`);
   }
 };

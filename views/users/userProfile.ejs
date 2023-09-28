@@ -34,8 +34,12 @@
   />
   <h3 class="mt-5">Bookshelf:</h3>
   <div class="row">
-    <% if (foundUser.bookshelf.length > 0) { %> <%
-    foundUser.bookshelf.forEach((item) => { %>
+    <% if (foundUser.bookshelf.length === 0) { %> <% if (currentUser &&
+    currentUser._id.equals(foundUser._id)) { %>
+    <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
+    <% } else { %>
+    <p>This user's bookshelf is currently empty.</p>
+    <% } %> <% } else { %> <% foundUser.bookshelf.forEach((item) => { %>
     <div class="col-md-3 book-card">
       <div class="card shadow">
         <div class="card-body">
@@ -49,15 +53,9 @@
         </div>
       </div>
     </div>
-    <% }); %> <% } else { %>
-    <p>Your bookshelf is currently empty.</p>
-    <% } %> <% if (currentUser && currentUser._id.equals(foundUser._id)) { %> <%
-    if (foundUser.bookshelf.length === 0) { %>
-    <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
-    <% } %> <% } else { %>
-    <p>This user's bookshelf is currently empty. Check back later!</p>
-    <% } %>
+    <% }); %> <% } %>
   </div>
+
   <h3 class="mt-5">Reviewed:</h3>
   <% if (userReviews && userReviews.length > 0) { %> <%
   userReviews.forEach((review) => { %>
