@@ -46,4 +46,4 @@ router.delete(
 
 //Forgot password route
 router.get("/forgot-password", users.renderForgotPassword);
-router.post("/forgot-passoword", users.resetPassword);
+router.post("/forgot-password", catchAsync(users.resetPassword));

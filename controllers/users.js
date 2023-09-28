@@ -1,6 +1,9 @@
 const User = require("../models/user");
 const Review = require("../models/review");
 const Book = require("../models/book");
+var async = require("async");
+var nodemailer = require("nodemailer");
+var crypto = require("crypto");
 
 //Render User Registration Form
 module.exports.renderRegister = (req, res) => {
@@ -159,4 +162,47 @@ module.exports.renderForgotPassword = (req, res) => {
 };
 
 //Submit Forgot Password Form to Reset Password
-module.exports.resetPassword = (req, res, next) => {};
+
+// Submit Forgot Password Form to Reset Password
+module.exports.resetPassword = async (req, res, next) => {
+  try {
+    const token = crypto.randomBytes(20).toString("hex");
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      req.flash("error", "No account with that email address exists.");
+      return res.redirect("/users/forgot-password");
+    }
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+    await user.save();
+
+    const smtpTransport = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "calmninja2023@gmail.com",
+        pass: process.env.GMAILPW,
+      },
+    });
+
+    const mailOptions = {
+      to: user.email,
+      from: "calmninja2023@gmail.com",
+      subject: "BookThing Password Reset",
+      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://${req.headers.host}/reset/${token}\n\nIf you did not request this, please ignore this email, and your password will remain unchanged.`,
+    };
+
+    await smtpTransport.sendMail(mailOptions);
+
+    req.flash(
+      "success",
+      `An e-mail has been sent to ${user.email} with further instructions.`
+    );
+    return res.redirect("users/forgot-password");
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
