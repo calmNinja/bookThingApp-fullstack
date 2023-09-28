@@ -23,6 +23,8 @@ const UserSchema = new Schema({
   avatar: String,
   firstname: String,
   lastname: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   bookshelf: [ShelvedBookSchema],
   isAdmin: { type: Boolean, default: false },
 });

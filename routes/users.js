@@ -5,6 +5,9 @@ const User = require("../models/user");
 const catchAsync = require("../utils/catchAsync");
 const users = require("../controllers/users");
 const { checkReturnTo } = require("../middleware");
+var async = require("async");
+var nodemailer = require("nodemailer");
+var crypto = require("crypto");
 
 //User Registration
 router.get("/register", users.renderRegister);
@@ -40,3 +43,7 @@ router.delete(
   "/users/:id/bookshelf/:bookId",
   catchAsync(users.removeFromBookshelf)
 );
+
+//Forgot password route
+router.get("/forgot-password", users.renderForgotPassword);
+router.post("/forgot-passoword", users.resetPassword);

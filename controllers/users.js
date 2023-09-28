@@ -152,3 +152,11 @@ module.exports.removeFromBookshelf = async (req, res) => {
     res.redirect(`/users/${userId}`);
   }
 };
+
+//Render Forgot Password Form
+module.exports.renderForgotPassword = (req, res) => {
+  res.render("users/forgot-password");
+};
+
+//Submit Forgot Password Form to Reset Password
+module.exports.resetPassword = (req, res, next) => {};
