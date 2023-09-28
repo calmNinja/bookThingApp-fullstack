@@ -13,8 +13,7 @@
           <div class="card-body text-center">
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
-            <%if(currentUser){%> <% console.log(`value of isShelved :
-            ${isShelved}`) %> <% if (!isShelved) { %>
+            <%if(currentUser){%> <% if (!isShelved) { %>
             <form
               action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>"
               method="POST"

@@ -42,6 +42,15 @@
     <% } %> <% } else { %> <% foundUser.bookshelf.forEach((item) => { %>
     <div class="col-md-3 book-card">
       <div class="card shadow">
+        <div class="position-relative">
+          <form
+            action="/users/<%= currentUser._id %>/bookshelf/<%= item.book._id %>?_method=DELETE"
+            method="POST"
+            class="position-absolute top-0 end-0"
+          >
+            <button class="btn btn-sm btn-danger">X</button>
+          </form>
+        </div>
         <div class="card-body">
           <a href="/books/<%= item.book._id %>">
             <img

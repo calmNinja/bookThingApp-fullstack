@@ -39,7 +39,6 @@ module.exports.bookDescription = async (req, res) => {
       //fetch the user's bookshelf data
       const user = await User.findById(req.user._id);
       isShelved = isBookShelved(user.bookshelf, book._id);
-      console.log(`isShelved value : ${isShelved}`);
 
       //check if the user has already reviewed the book
       userHasReviewed = book.reviews.some((review) => {
