@@ -13,21 +13,24 @@
           <div class="card-body text-center">
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
-            <%if(currentUser){%>
+            <%if(currentUser){%> <% console.log(`value of isShelved :
+            ${isShelved}`) %> <% if (!isShelved) { %>
             <form
               action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>"
               method="POST"
             >
-              <button
-                class="btn btn-warning my-3"
-                id="want-to-read-btn"
-                data-book-id="<%= book._id %>"
-                type="submit"
-              >
-                Want To Read
-              </button>
+              <button class="btn btn-warning my-3">Want To Read</button>
             </form>
-            <%} else {%>
+
+            <% } else { %>
+
+            <form
+              action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-success my-3">Shelved</button>
+            </form>
+            <% } %> <%} else {%>
             <a
               href="/login?returnTo=/books/<%= book._id %>"
               class="btn btn-warning my-3"

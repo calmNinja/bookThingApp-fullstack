@@ -94,7 +94,7 @@ module.exports.showUserProfile = async (req, res) => {
   }
 };
 
-//Add Books to BookShelf in UserProfile
+//Add Book to BookShelf in UserProfile
 module.exports.addToBookshelf = async (req, res) => {
   const userId = req.user._id;
   const bookId = req.params.bookId;
@@ -107,7 +107,8 @@ module.exports.addToBookshelf = async (req, res) => {
       user.bookshelf.push({ book: bookId, isShelved: true });
       await user.save();
       req.flash("success", "Successfully added to bookshelf.");
-      res.redirect(`/users/${userId}`);
+      // res.redirect(`/users/${userId}`);
+      res.redirect(`/books/${bookId}`);
     } else {
       req.flash("error", "This Book has already been shelved!");
       res.redirect(`/books/${bookId}`);
@@ -115,5 +116,20 @@ module.exports.addToBookshelf = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+//Remove Book from Bookshelf in userProfile
+module.exports.removeFromBookshelf = async (req, res) => {
+  const userId = req.params.id;
+  const bookId = req.params.bookId;
+  try {
+  } catch (error) {
+    console.error(error);
+    req.flash(
+      "error",
+      "Something went wrong while trying to remove book from bookshelf."
+    );
+    res.redirect("/books");
   }
 };

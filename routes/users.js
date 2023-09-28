@@ -34,3 +34,9 @@ module.exports = router;
 
 //Add books to User BookShelf
 router.post("/users/:id/bookshelf/:bookId", catchAsync(users.addToBookshelf));
+
+//Remove book from BookShelf
+router.delete(
+  "/users/:id/bookshelf/:bookId",
+  catchAsync(users.removeFromBookshelf)
+);
