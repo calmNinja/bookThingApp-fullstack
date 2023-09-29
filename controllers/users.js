@@ -168,8 +168,9 @@ module.exports.forgotPassword = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
+      console.log("no account with that email address");
       req.flash("error", "No account with that email address exists.");
-      return res.redirect("/users/forgot-password");
+      return res.redirect("/forgot-password");
     }
 
     user.resetPasswordToken = token;
