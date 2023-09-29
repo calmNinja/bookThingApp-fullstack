@@ -30,9 +30,6 @@ router.post(
 //User Logout
 router.get("/logout", users.logoutUser);
 
-//User Profile
-router.get("/users/:id", catchAsync(users.showUserProfile));
-
 module.exports = router;
 
 //Add books to User BookShelf
@@ -44,6 +41,13 @@ router.delete(
   catchAsync(users.removeFromBookshelf)
 );
 
-//Forgot password route
+//Forgot password routes
 router.get("/forgot-password", users.renderForgotPassword);
-router.post("/forgot-password", catchAsync(users.resetPassword));
+router.post("/forgot-password", catchAsync(users.forgotPassword));
+
+//Update password routes
+router.get("/reset/:token", catchAsync(users.renderResetPassword));
+router.post("/reset/:token", catchAsync(users.resetPassword));
+
+//User Profile
+router.get("/users/:id", catchAsync(users.showUserProfile));

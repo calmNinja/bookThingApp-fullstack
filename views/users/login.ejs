@@ -1,9 +1,4 @@
 <% layout('layouts/boilerplate')%>
-<style>
-  #searchbox {
-    display: none;
-  }
-</style>
 <div class="container .d-flex justify-content-center align-items-center mt-5">
   <div class="row">
     <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
@@ -36,8 +31,13 @@
               />
             </div>
 
-            <button class="btn btn-success">Sign in</button>
+            <div class="text-center mt-3">
+              <button class="btn btn-success">Sign in</button>
+            </div>
           </form>
+          <div class="text-center">
+            <a href="/forgot-password" class="btn btn-link">Forgot Password?</a>
+          </div>
         </div>
       </div>
     </div>

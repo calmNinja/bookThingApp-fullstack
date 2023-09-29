@@ -161,10 +161,8 @@ module.exports.renderForgotPassword = (req, res) => {
   res.render("users/forgot-password");
 };
 
-//Submit Forgot Password Form to Reset Password
-
 // Submit Forgot Password Form to Reset Password
-module.exports.resetPassword = async (req, res, next) => {
+module.exports.forgotPassword = async (req, res, next) => {
   try {
     const token = crypto.randomBytes(20).toString("hex");
     const user = await User.findOne({ email: req.body.email });
@@ -200,9 +198,84 @@ module.exports.resetPassword = async (req, res, next) => {
       "success",
       `An e-mail has been sent to ${user.email} with further instructions.`
     );
-    return res.redirect("users/forgot-password");
+    return res.redirect("/forgot-password");
   } catch (err) {
     console.error(err);
     return next(err);
+  }
+};
+
+//Render Update Password Form
+module.exports.renderResetPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/forgot-password");
+    }
+    res.render("users/reset-password", { token: req.params.token });
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "An error occurred while processing your request.");
+    res.redirect("/forgot-password");
+  }
+};
+
+//Update New Password for Password Reset
+module.exports.resetPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("back");
+    }
+
+    if (req.body.password === req.body.confirm) {
+      await user.setPassword(req.body.password);
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+      await user.save();
+      await req.logIn(user, (err) => {
+        if (err) {
+          console.error(err);
+          req.flash("error", "An error occurred while logging in.");
+          return res.redirect("/login");
+        } else {
+          res.redirect("/books");
+        }
+      });
+    } else {
+      req.flash("error", "Passwords do not match.");
+      return res.redirect("back");
+    }
+    const smtpTransport = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "calmninja2023@gmail.com",
+        pass: process.env.GMAILPW,
+      },
+    });
+    const mailOptions = {
+      to: user.email,
+      from: "calmninja2023@gmail.com",
+      subject: "Your password has been changed",
+      text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed.\n`,
+    };
+
+    await smtpTransport.sendMail(mailOptions);
+    // req.flash("success", "Success! Your password has been changed.");
+    // res.redirect("/books");
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "An error occurred while resetting the password.");
+    res.redirect("/reset/${req.params.token}");
   }
 };
