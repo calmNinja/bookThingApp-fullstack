@@ -3,23 +3,19 @@
   <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
     <div class="card shadow">
       <div class="card-body">
-        <h2 class="card-title mb-3">Create An Account</h2>
-        <form
-          action="/register"
-          method="POST"
-          class="validated-form"
-          novalidate
-        >
+        <h2 class="card-title mb-3">Edit Account</h2>
+        <form action="" method="" class="validated-form" novalidate>
           <div class="form-group mb-3">
             <label class="form-label" for="firstname">First Name</label>
             <input
               type="text"
               class="form-control"
               id="firstname"
-              name="firstname"
+              name="user[firstname]"
               placeholder="Enter your first name"
               autofocus
               required
+              value="<%= foundUser.firstname %>"
             />
             <div class="valid-feedback">Looks good!</div>
           </div>
@@ -29,10 +25,11 @@
               type="text"
               class="form-control"
               id="lastname"
-              name="lastname"
+              name="user[lastname]"
               placeholder="Enter your last name"
               autofocus
               required
+              value="<%= foundUser.lastname %>"
             />
             <div class="valid-feedback">Looks good!</div>
           </div>
@@ -42,10 +39,11 @@
               type="text"
               class="form-control"
               id="username"
-              name="username"
+              name="user[username]"
               placeholder="Enter a username"
               autofocus
               required
+              value="<%= foundUser.username %>"
             />
             <div class="valid-feedback">Looks good!</div>
           </div>
@@ -55,9 +53,10 @@
               type="email"
               class="form-control"
               id="email"
-              name="email"
+              name="user[email]"
               placeholder="jane@gmail.com"
               required
+              value="<%= foundUser.email %>"
             />
             <small id="emailHelp" class="form-text text-muted"
               >We'll never share your email with anyone else.</small
@@ -70,36 +69,16 @@
               type="text"
               class="form-control"
               id="avatar"
-              name="avatar"
+              name="user[avatar]"
               placeholder="Enter your avatar url"
               autofocus
+              value="<%= foundUser.avatar %>"
             />
             <div class="valid-feedback">Looks good!</div>
           </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="password">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-              placeholder="Enter a Password"
-              required
-            />
-            <div class="valid-feedback">Looks good!</div>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="adminCode">Admin Code</label>
-            <input
-              type="password"
-              class="form-control"
-              id="adminCode"
-              name="adminCode"
-              placeholder="Enter the Admin Code"
-            />
-          </div>
+
           <div class="form-group text-center mb-3">
-            <button class="btn btn-primary">Register</button>
+            <button class="btn btn-primary">Confirm</button>
           </div>
         </form>
       </div>

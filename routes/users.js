@@ -4,7 +4,7 @@ const passport = require("passport");
 const User = require("../models/user");
 const catchAsync = require("../utils/catchAsync");
 const users = require("../controllers/users");
-const { checkReturnTo } = require("../middleware");
+const { checkReturnTo, isLoggedIn, isProfileOwner } = require("../middleware");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
@@ -51,3 +51,11 @@ router.post("/reset/:token", catchAsync(users.resetPassword));
 
 //User Profile
 router.get("/users/:id", catchAsync(users.showUserProfile));
+
+//Edit User Profile
+router.get(
+  "/users/:id/edit",
+  isLoggedIn,
+  isProfileOwner,
+  users.renderEditUserProfile
+);

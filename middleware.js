@@ -1,5 +1,6 @@
 const Review = require("./models/review.js");
 const { reviewSchema } = require("./schemas.js");
+const User = require("./models/user");
 const ExpressError = require("./utils/ExpressError");
 
 //Check if the user is logged in
@@ -23,12 +24,12 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 };
 
 //Return to the last path before registering a new user
-module.exports.storeReturnTo = (req, res, next) => {
-  if (req.session.returnTo) {
-    res.locals.returnTo = req.session.returnTo;
-  }
-  next();
-};
+// module.exports.storeReturnTo = (req, res, next) => {
+//   if (req.session.returnTo) {
+//     res.locals.returnTo = req.session.returnTo;
+//   }
+//   next();
+// };
 
 //validate review body
 module.exports.validateReview = (req, res, next) => {
@@ -41,9 +42,33 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
+//Return to the last path where the user was
 module.exports.checkReturnTo = (req, res, next) => {
   if (req.session.returnTo) {
     res.locals.returnTo = req.session.returnTo;
   }
   next();
+};
+
+//Check if current user is also user of the Profile
+module.exports.isProfileOwner = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      req.flash("error", "User not found.");
+      return res.redirect("back");
+    }
+
+    if (!user._id.equals(req.user._id) && !req.user.isAdmin) {
+      req.flash("error", "You do not have permission to edit this profile.");
+      return res.redirect(`/users/${req.params.id}`);
+    }
+
+    next();
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "An error occurred while checking ownership.");
+    res.redirect("back");
+  }
 };

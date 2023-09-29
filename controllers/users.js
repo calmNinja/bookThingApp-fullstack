@@ -280,3 +280,8 @@ module.exports.resetPassword = async (req, res) => {
     res.redirect("/reset/${req.params.token}");
   }
 };
+
+//Edit User Profile
+module.exports.renderEditUserProfile = (req, res) => {
+  res.render("users/editUserProfile", { foundUser: req.user });
+};

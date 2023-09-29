@@ -26,13 +26,27 @@
 </style>
 
 <div class="container mb-5">
-  <h2 class="text-primary"><%=foundUser.firstname%> <%=foundUser.lastname%></h2>
-  <img
-    class="img-thumbnail my-3"
-    id="avatar-img"
-    src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
-    alt="user display image"
-  />
+  <div class="user-profile-header">
+    <div class="text-end">
+      <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
+      <a href="/users/<%= foundUser._id %>/edit" class="btn btn-primary"
+        >Edit Profile</a
+      >
+      <%}%>
+    </div>
+    <h2 class="text-primary">
+      <%=foundUser.firstname%> <%=foundUser.lastname%>
+    </h2>
+  </div>
+  <div>
+    <img
+      class="img-thumbnail my-3"
+      id="avatar-img"
+      src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
+      alt="user display image"
+    />
+  </div>
+
   <h3 class="mt-5">Bookshelf:</h3>
   <div class="row">
     <% if (foundUser.bookshelf.length === 0) { %> <% if (currentUser &&
@@ -44,6 +58,7 @@
     <div class="col-md-3 book-card">
       <div class="card shadow">
         <div class="position-relative">
+          <% if (currentUser && currentUser._id.equals(foundUser._id)) { %>
           <form
             action="/users/<%= currentUser._id %>/bookshelf/<%= item.book._id %>?_method=DELETE"
             method="POST"
@@ -51,6 +66,7 @@
           >
             <button class="btn btn-sm btn-danger">X</button>
           </form>
+          <%}%>
         </div>
         <div class="card-body">
           <a href="/books/<%= item.book._id %>">
