@@ -2,8 +2,9 @@
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
 <style>
   #avatar-img {
-    height: 12.5em;
-    width: 12.5em;
+    height: 10em;
+    width: 10em;
+    object-fit: cover;
   }
   .book-card .card {
     max-width: 50%;
@@ -29,7 +30,7 @@
   <img
     class="img-thumbnail my-3"
     id="avatar-img"
-    src="<%=foundUser.avatar%>"
+    src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
     alt="user display image"
   />
   <h3 class="mt-5">Bookshelf:</h3>
