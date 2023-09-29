@@ -59,3 +59,11 @@ router.get(
   isProfileOwner,
   users.renderEditUserProfile
 );
+
+//Update User Profile
+router.put(
+  "/users/:id",
+  isLoggedIn,
+  isProfileOwner,
+  catchAsync(users.updateUserProfile)
+);

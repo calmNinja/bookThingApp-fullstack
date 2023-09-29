@@ -285,3 +285,25 @@ module.exports.resetPassword = async (req, res) => {
 module.exports.renderEditUserProfile = (req, res) => {
   res.render("users/editUserProfile", { foundUser: req.user });
 };
+
+//Update User Profile
+module.exports.updateUserProfile = async (req, res) => {
+  try {
+    const { firstname, lastname, username, email, avatar } = req.body.user;
+    const userId = req.params.id;
+
+    // Update the user's profile information in the database
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { firstname, lastname, username, email, avatar },
+      { new: true }
+    );
+
+    req.flash("success", "Profile updated successfully!");
+    res.redirect(`/users/${userId}`);
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "An error occurred while updating the profile.");
+    res.redirect("back");
+  }
+};
