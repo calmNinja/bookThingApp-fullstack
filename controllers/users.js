@@ -307,3 +307,9 @@ module.exports.updateUserProfile = async (req, res) => {
     res.redirect("back");
   }
 };
+
+//Render Change Password Form
+module.exports.renderChangePassword = (req, res) => {
+  console.log("Trying to change password");
+  res.render("users/change-password");
+};

@@ -29,8 +29,15 @@
   <div class="user-profile-header">
     <div class="text-end">
       <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
-      <a href="/users/<%= foundUser._id %>/edit" class="btn btn-primary"
+      <a
+        href="/users/<%= foundUser._id %>/edit"
+        class="btn btn-sm btn-secondary"
         >Edit Profile</a
+      >
+      <a
+        href="/users/<%= foundUser._id %>/changepassword"
+        class="btn btn-sm btn-primary"
+        >Change Password</a
       >
       <%}%>
     </div>

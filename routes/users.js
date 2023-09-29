@@ -67,3 +67,11 @@ router.put(
   isProfileOwner,
   catchAsync(users.updateUserProfile)
 );
+
+//Render Change Password Form
+router.get(
+  "/users/:id/changepassword",
+  isLoggedIn,
+  isProfileOwner,
+  users.renderChangePassword
+);
