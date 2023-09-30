@@ -30,8 +30,6 @@ router.post(
 //User Logout
 router.get("/logout", users.logoutUser);
 
-module.exports = router;
-
 //Add books to User BookShelf
 router.post("/users/:id/bookshelf/:bookId", catchAsync(users.addToBookshelf));
 
@@ -75,3 +73,12 @@ router.get(
   isProfileOwner,
   users.renderChangePassword
 );
+
+//Update Changed Password
+router.put(
+  "/users/:id/change-password",
+  isLoggedIn,
+  users.updateChangedPassword
+);
+
+module.exports = router;

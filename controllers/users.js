@@ -4,6 +4,7 @@ const Book = require("../models/book");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
+const passport = require("passport");
 
 //Render User Registration Form
 module.exports.renderRegister = (req, res) => {
@@ -168,7 +169,6 @@ module.exports.forgotPassword = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      console.log("no account with that email address");
       req.flash("error", "No account with that email address exists.");
       return res.redirect("/forgot-password");
     }
@@ -310,6 +310,49 @@ module.exports.updateUserProfile = async (req, res) => {
 
 //Render Change Password Form
 module.exports.renderChangePassword = (req, res) => {
-  console.log("Trying to change password");
-  res.render("users/change-password");
+  res.render("users/change-password", { foundUser: req.user });
+};
+
+//Update Changed Password
+module.exports.updateChangedPassword = async (req, res) => {
+  const userId = req.params.id;
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      req.flash("error", "User not found, failed to update password.");
+      return res.redirect("/");
+    }
+
+    // Check if the provided currentPassword matches the user's current password
+    try {
+      await user.changePassword(currentPassword, newPassword);
+    } catch (err) {
+      req.flash("error", "Current password is incorrect");
+      return res.redirect(`/users/${userId}/changepassword`);
+    }
+
+    if (newPassword !== confirmPassword) {
+      req.flash("error", "Passwords do not match!");
+      return res.redirect(`/users/${userId}/changepassword`);
+    }
+
+    req.logout(function (err) {
+      if (err) {
+        console.error(err);
+      }
+
+      req.flash("success", "Password Updated successfully! Please sign in.");
+      return res.redirect("/login");
+    });
+  } catch (error) {
+    console.error(error);
+    req.flash(
+      "error",
+      "Something went wrong when trying to change the password."
+    );
+    return res.redirect(`/users/${userId}/changepassword`);
+  }
 };
