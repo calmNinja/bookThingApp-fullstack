@@ -27,7 +27,7 @@ module.exports.bookDescription = async (req, res) => {
     if (!book) {
       req.flash(
         "error",
-        "Sorry :( The title you are looking for is no longer available.."
+        "Sorry :( The title you are looking for is not available."
       );
       return res.redirect("/books");
     }
@@ -49,7 +49,7 @@ module.exports.bookDescription = async (req, res) => {
     res.render("books/show", { book, book_genres, userHasReviewed, isShelved });
   } catch (error) {
     console.error(error);
-    req.flash("error", "An error occurred.");
+    req.flash("error", "The title you are looking for is no longer available.");
     res.redirect("/books");
   }
 };

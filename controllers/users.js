@@ -365,20 +365,38 @@ module.exports.deleteUserAccount = async (req, res) => {
       req.flash("error", "User not found, failed to delete account.");
       return res.redirect("/");
     }
+
+    //Find All Books Reviewed by this user
+    const booksToUpdate = await Book.find({ "review.author": userId });
+
+    //Remove all review references of this author from all of their reviewed books
+    for (const bookToUpdate of booksToUpdate) {
+      bookToUpdate.reviews = bookToUpdate.reviews.filter(
+        (review) => review.author.toString() !== userId
+      );
+
+      await bookToUpdate.save();
+    }
+
+    //Delete user's book review
+    await Review.deleteMany({ author: userId });
+    // Use $pull to remove references to user's reviews from the books
+    // await Book.updateMany(
+    //   { "reviews.author": userId },
+    //   { $pull: { reviews: { author: userId } } }
+    // );
+
+    //Remove the user
+    await User.deleteOne({ _id: userId });
+
+    //Logout the user
     req.logout(function (err) {
       if (err) {
-        req.flash("error", "Error occurred during logout.");
-        return res.redirect("/");
+        console.error(err);
       }
-      User.deleteOne({ _id: userId })
-        .then(() => {
-          req.flash("success", "Your account has been deleted successfully.");
-          return res.redirect("/");
-        })
-        .catch((err) => {
-          req.flash("error", "Error occurred while deleting the account.");
-          return res.redirect("/");
-        });
+
+      req.flash("success", "Your account has been deleted successfully.");
+      return res.redirect("/");
     });
   } catch (error) {
     console.error(error);
