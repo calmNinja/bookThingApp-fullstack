@@ -356,3 +356,36 @@ module.exports.updateChangedPassword = async (req, res) => {
     return res.redirect(`/users/${userId}/changepassword`);
   }
 };
+
+module.exports.deleteUserAccount = async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      req.flash("error", "User not found, failed to delete account.");
+      return res.redirect("/");
+    }
+    req.logout(function (err) {
+      if (err) {
+        req.flash("error", "Error occurred during logout.");
+        return res.redirect("/");
+      }
+      User.deleteOne({ _id: userId })
+        .then(() => {
+          req.flash("success", "Your account has been deleted successfully.");
+          return res.redirect("/");
+        })
+        .catch((err) => {
+          req.flash("error", "Error occurred while deleting the account.");
+          return res.redirect("/");
+        });
+    });
+  } catch (error) {
+    console.error(error);
+    req.flash(
+      "error",
+      "Something went wrong when trying to delete the account."
+    );
+    return res.redirect("/");
+  }
+};

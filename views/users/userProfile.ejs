@@ -107,3 +107,11 @@
   <p>You have not posted any book reviews yet.</p>
   <% } %>
 </div>
+
+<div class="my-3 text-center">
+  <form action="/users/<%= foundUser._id %>?_method=DELETE" method="POST">
+    <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
+    <button class="btn btn-danger">Delete Account</button>
+    <% } %>
+  </form>
+</div>

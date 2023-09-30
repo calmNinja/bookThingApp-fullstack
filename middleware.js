@@ -23,14 +23,6 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   next();
 };
 
-//Return to the last path before registering a new user
-// module.exports.storeReturnTo = (req, res, next) => {
-//   if (req.session.returnTo) {
-//     res.locals.returnTo = req.session.returnTo;
-//   }
-//   next();
-// };
-
 //validate review body
 module.exports.validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);

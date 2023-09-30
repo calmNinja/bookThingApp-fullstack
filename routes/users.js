@@ -78,7 +78,15 @@ router.get(
 router.put(
   "/users/:id/change-password",
   isLoggedIn,
-  users.updateChangedPassword
+  isProfileOwner,
+  catchAsync(users.updateChangedPassword)
 );
 
+//Delete User Account
+router.delete(
+  "/users/:id",
+  isLoggedIn,
+  isProfileOwner,
+  catchAsync(users.deleteUserAccount)
+);
 module.exports = router;
