@@ -1,4 +1,10 @@
 <% layout('layouts/boilerplate')%>
+<style>
+  .text-muted {
+    color: #6c757d;
+    font-size: 0.85em;
+  }
+</style>
 <div class="container .d-flex justify-content-center align-items-center mb-4">
   <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
     <div class="card shadow">
@@ -8,6 +14,7 @@
           action="/register"
           method="POST"
           class="validated-form"
+          onsubmit="return validateForm(event)"
           novalidate
         >
           <div class="form-group mb-3">
@@ -62,19 +69,22 @@
             <small id="emailHelp" class="form-text text-muted"
               >We'll never share your email with anyone else.</small
             >
-            <div class="valid-feedback">Looks good!</div>
           </div>
           <div class="form-group mb-3">
-            <label class="form-label" for="avatar">Avatar url</label>
+            <label class="form-label" for="avatar"
+              >Avatar url<span class="text-muted"> (optional)</span>
+            </label>
             <input
               type="text"
               class="form-control"
               id="avatar"
               name="avatar"
               placeholder="Enter your avatar url"
+              aria-describedby="avatar-error"
+              novalidate
               autofocus
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback" id="avatar-error"></div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="password">Password</label>
@@ -89,7 +99,10 @@
             <div class="valid-feedback">Looks good!</div>
           </div>
           <div class="form-group mb-3">
-            <label class="form-label" for="adminCode">Admin Code</label>
+            <label class="form-label" for="adminCode"
+              >Admin Code
+              <span class="text-muted">(for admin account)</span></label
+            >
             <input
               type="password"
               class="form-control"
@@ -106,3 +119,4 @@
     </div>
   </div>
 </div>
+<script src="/javascripts/register-form.js"></script>
