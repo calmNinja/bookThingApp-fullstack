@@ -14,15 +14,15 @@ module.exports.registrationSchema = Joi.object({
   lastname: Joi.string().min(4).required(),
   username: Joi.string().min(6).required(),
   email: Joi.string().email().required(),
-  avatar: Joi.string().uri(),
+  avatar: Joi.string().uri().allow("").optional(),
   password: Joi.string()
     .min(8)
     .pattern(
       new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")
     )
     .required(),
-  adminCode: Joi.string(),
-}).required();
+  adminCode: Joi.string().allow("").optional(),
+});
 
 //Server-side validation for User Profile Edit
 module.exports.profileEditSchema = Joi.object({
@@ -33,16 +33,31 @@ module.exports.profileEditSchema = Joi.object({
     email: Joi.string().email().required(),
     avatar: Joi.string()
       .uri()
-      .pattern(/^(http[s]?:\/\/|data:image\/).*/), // Optional field for avatar URL
+      .pattern(/^(http[s]?:\/\/|data:image\/).*/)
+      .allow("")
+      .optional(),
   }).required(),
 });
 
-//Server-side validation for password reset/update
-module.exports.passwordResetSchema = Joi.object({
+//Server-side validation for password change
+module.exports.passwordChangeSchema = Joi.object({
+  currentPassword: Joi.string().required(),
+  newPassword: Joi.string()
+    .min(8)
+    .pattern(
+      new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")
+    )
+    .required(),
+  confirmPassword: Joi.string().valid(Joi.ref("newPassword")).required(),
+});
+
+//Server-side validation for forgot & reset password
+module.exports.resetPasswordSchema = Joi.object({
   password: Joi.string()
     .min(8)
     .pattern(
       new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")
     )
     .required(),
+  confirm: Joi.string().valid(Joi.ref("password")).required(),
 });

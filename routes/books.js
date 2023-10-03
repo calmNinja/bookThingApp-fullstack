@@ -4,7 +4,7 @@ const books = require("../controllers/books");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const Book = require("../models/book");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, isAdminAccount } = require("../middleware");
 
 //Route to Book Index
 router.get("/", catchAsync(books.index));
@@ -12,6 +12,6 @@ router.get("/", catchAsync(books.index));
 router.get("/:id", catchAsync(books.bookDescription));
 
 //Route to delete a book - for admin only TBD
-router.delete("/:id", isLoggedIn, catchAsync(books.deleteBook));
+router.delete("/:id", isLoggedIn, isAdminAccount, catchAsync(books.deleteBook));
 
 module.exports = router;

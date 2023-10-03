@@ -10,7 +10,8 @@ const {
   isProfileOwner,
   validateNewUser,
   validateUserProfileEdit,
-  validateNewPassword,
+  validatePasswordChange,
+  validateResetPassword,
 } = require("../middleware");
 var async = require("async");
 var nodemailer = require("nodemailer");
@@ -52,7 +53,11 @@ router.post("/forgot-password", catchAsync(users.forgotPassword));
 
 //Update password routes
 router.get("/reset/:token", catchAsync(users.renderResetPassword));
-router.post("/reset/:token", catchAsync(users.resetPassword));
+router.post(
+  "/reset/:token",
+  validateResetPassword,
+  catchAsync(users.resetPassword)
+);
 
 //User Profile
 router.get("/users/:id", catchAsync(users.showUserProfile));
@@ -87,7 +92,7 @@ router.put(
   "/users/:id/change-password",
   isLoggedIn,
   isProfileOwner,
-  validateNewPassword,
+  validatePasswordChange,
   catchAsync(users.updateChangedPassword)
 );
 

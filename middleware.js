@@ -3,7 +3,8 @@ const {
   reviewSchema,
   registrationSchema,
   profileEditSchema,
-  passwordResetSchema,
+  passwordChangeSchema,
+  resetPasswordSchema,
 } = require("./schemas.js");
 const User = require("./models/user");
 const ExpressError = require("./utils/ExpressError");
@@ -70,6 +71,18 @@ module.exports.isProfileOwner = async (req, res, next) => {
   }
 };
 
+//Check if user is admin
+module.exports.isAdminAccount = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    // The user is an admin, so allow access
+    return next();
+  } else {
+    // The user is not an admin, deny access
+    req.flash("error", "You do not have admin privileges.");
+    res.redirect("back");
+  }
+};
+
 //Validate New User Registration Form
 module.exports.validateNewUser = (req, res, next) => {
   const { error } = registrationSchema.validate(req.body);
@@ -92,8 +105,18 @@ module.exports.validateUserProfileEdit = (req, res, next) => {
   }
 };
 
-module.exports.validateNewPassword = (req, res, next) => {
-  const { error } = passwordResetSchema.validate(req.body);
+module.exports.validatePasswordChange = (req, res, next) => {
+  const { error } = passwordChangeSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
+module.exports.validateResetPassword = (req, res, next) => {
+  const { error } = resetPasswordSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
