@@ -20,9 +20,12 @@
               placeholder="Enter your first name"
               autofocus
               required
+              minlength="4"
               value="<%= foundUser.firstname %>"
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              First Name must be at least 4 characters
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="lastname">Last Name</label>
@@ -33,10 +36,13 @@
               name="user[lastname]"
               placeholder="Enter your last name"
               autofocus
+              minlength="4"
               required
               value="<%= foundUser.lastname %>"
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Last Name must be at least 4 characters
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="username">Username</label>
@@ -47,10 +53,13 @@
               name="user[username]"
               placeholder="Enter a username"
               autofocus
+              minlength="6"
               required
               value="<%= foundUser.username %>"
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Username must be at least 6 characters long
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="email">Email address</label>
@@ -66,7 +75,6 @@
             <small id="emailHelp" class="form-text text-muted"
               >We'll never share your email with anyone else.</small
             >
-            <div class="valid-feedback">Looks good!</div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="avatar">Avatar url</label>
@@ -76,10 +84,11 @@
               id="avatar"
               name="user[avatar]"
               placeholder="Enter your avatar url"
+              pattern="^(http[s]?:\/\/|data:image\/).*$"
               autofocus
               value="<%= foundUser.avatar %>"
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please enter a valid url</div>
           </div>
 
           <div class="form-group text-center mb-3">
