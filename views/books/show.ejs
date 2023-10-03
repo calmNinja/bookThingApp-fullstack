@@ -61,7 +61,8 @@
     </div>
     <div class="row my-3">
       <div class="col-6 offset-4">
-        <% if (!userHasReviewed && currentUser) { %>
+        <% if (currentUser) { %> <% if (isShelved) { %> <% if (!userHasReviewed)
+        { %>
         <h2>Write A Review</h2>
         <form
           action="/books/<%=book._id%>/reviews"
@@ -135,13 +136,14 @@
 
           <button class="btn btn-success">Submit</button>
         </form>
-        <%} else {%>
+        <% } %> <% } %> <% } else { %>
         <a
           href="/login?returnTo=/books/<%= book._id %>"
           class="btn btn-lg btn-primary"
           >Leave a Review</a
         >
-        <%} %>
+        <% } %>
+
         <h3 class="mt-4 mb-3">Reviews</h3>
         <% if (book.reviews.length === 0) { %>
         <p>There are no reviews for this book yet. Be the first to review!</p>

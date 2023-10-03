@@ -117,8 +117,29 @@
         <%= review.rating %>
       </p>
       <p><%= review.body %></p>
+      <!-- Edit/delete Reviews -->
+      <% if (currentUser && review.author.equals(currentUser._id) || currentUser
+      && currentUser.isAdmin) { %>
+      <form
+        action="/books/<%= review.book._id %>/reviews/<%= review._id %>/edit"
+        method="GET"
+        class="d-inline"
+      >
+        <button class="btn btn-sm btn-warning mb-3 ms-2">Edit</button>
+      </form>
+      <form
+        action="/books/<%= review.book._id %>/reviews/<%= review._id %>/?_method=DELETE"
+        method="POST"
+        class="d-inline"
+      >
+        <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
+      </form>
+
+      <% } %>
+      <!-- Edit/delete Reviews -->
     </div>
   </div>
+
   <% }); %> <% } else { %>
   <p>You have not posted any book reviews yet.</p>
   <% } %>
