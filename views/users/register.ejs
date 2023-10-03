@@ -1,10 +1,5 @@
 <% layout('layouts/boilerplate')%>
-<style>
-  .text-muted {
-    color: #6c757d;
-    font-size: 0.85em;
-  }
-</style>
+<style></style>
 <div class="container .d-flex justify-content-center align-items-center mb-4">
   <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
     <div class="card shadow">
@@ -14,7 +9,6 @@
           action="/register"
           method="POST"
           class="validated-form"
-          onsubmit="return validateForm(event)"
           novalidate
         >
           <div class="form-group mb-3">
@@ -25,10 +19,13 @@
               id="firstname"
               name="firstname"
               placeholder="Enter your first name"
-              autofocus
               required
+              minlength="4"
+              autofocus
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              First Name must be at least 4 characters
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="lastname">Last Name</label>
@@ -38,10 +35,13 @@
               id="lastname"
               name="lastname"
               placeholder="Enter your last name"
+              minlength="4"
               autofocus
               required
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Last Name must be at least 4 characters
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="username">Username</label>
@@ -51,10 +51,13 @@
               id="username"
               name="username"
               placeholder="Enter a username"
+              minlength="6"
               autofocus
               required
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Must be at least 6 characters long
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="email">Email address</label>
@@ -72,7 +75,9 @@
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="avatar"
-              >Avatar url<span class="text-muted"> (optional)</span>
+              >Avatar url<span class="text-muted">
+                <small>(Optional)</small></span
+              >
             </label>
             <input
               type="text"
@@ -82,9 +87,10 @@
               placeholder="Enter your avatar url"
               aria-describedby="avatar-error"
               novalidate
+              pattern="^(http[s]?:\/\/|data:image\/).*$"
               autofocus
             />
-            <div class="invalid-feedback" id="avatar-error"></div>
+            <div class="invalid-feedback">Please enter a valid url</div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="password">Password</label>
@@ -94,14 +100,19 @@
               id="password"
               name="password"
               placeholder="Enter a Password"
+              minlength="8"
+              pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
               required
             />
-            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Password must be at least 8 characters and include a mix of
+              numbers, alphabets, and special characters.
+            </div>
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="adminCode"
               >Admin Code
-              <span class="text-muted">(for admin account)</span></label
+              <small class="text-muted">(for admin account only)</small></label
             >
             <input
               type="password"
@@ -115,8 +126,12 @@
             <button class="btn btn-primary">Register</button>
           </div>
         </form>
+        <div class="text-center">
+          <small
+            >Already have an account? <a href="/login">Sign in here!</a></small
+          >
+        </div>
       </div>
     </div>
   </div>
 </div>
-<script src="/javascripts/register-form.js"></script>
