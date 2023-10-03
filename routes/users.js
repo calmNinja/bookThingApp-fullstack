@@ -4,7 +4,14 @@ const passport = require("passport");
 const User = require("../models/user");
 const catchAsync = require("../utils/catchAsync");
 const users = require("../controllers/users");
-const { checkReturnTo, isLoggedIn, isProfileOwner } = require("../middleware");
+const {
+  checkReturnTo,
+  isLoggedIn,
+  isProfileOwner,
+  validateNewUser,
+  validateUserProfileEdit,
+  validateNewPassword,
+} = require("../middleware");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
@@ -12,7 +19,7 @@ var crypto = require("crypto");
 //User Registration
 router.get("/register", users.renderRegister);
 
-router.post("/register", catchAsync(users.register));
+router.post("/register", validateNewUser, catchAsync(users.register));
 
 //User Login
 router.get("/login", users.renderLogin);
@@ -63,6 +70,7 @@ router.put(
   "/users/:id",
   isLoggedIn,
   isProfileOwner,
+  validateUserProfileEdit,
   catchAsync(users.updateUserProfile)
 );
 
@@ -79,6 +87,7 @@ router.put(
   "/users/:id/change-password",
   isLoggedIn,
   isProfileOwner,
+  validateNewPassword,
   catchAsync(users.updateChangedPassword)
 );
 

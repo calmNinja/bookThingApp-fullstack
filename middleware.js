@@ -1,5 +1,10 @@
 const Review = require("./models/review.js");
-const { reviewSchema } = require("./schemas.js");
+const {
+  reviewSchema,
+  registrationSchema,
+  profileEditSchema,
+  passwordResetSchema,
+} = require("./schemas.js");
 const User = require("./models/user");
 const ExpressError = require("./utils/ExpressError");
 
@@ -23,7 +28,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   next();
 };
 
-//validate review body
+//Validate review body
 module.exports.validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   if (error) {
@@ -62,5 +67,37 @@ module.exports.isProfileOwner = async (req, res, next) => {
     console.error(err);
     req.flash("error", "An error occurred while checking ownership.");
     res.redirect("back");
+  }
+};
+
+//Validate New User Registration Form
+module.exports.validateNewUser = (req, res, next) => {
+  const { error } = registrationSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
+// Validate User Profile Editing
+module.exports.validateUserProfileEdit = (req, res, next) => {
+  const { error } = profileEditSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
+module.exports.validateNewPassword = (req, res, next) => {
+  const { error } = passwordResetSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
   }
 };
