@@ -87,7 +87,12 @@ module.exports.showUserProfile = async (req, res) => {
       const userReviews = await Review.find({
         author: foundUser._id,
       }).populate("book");
-      res.render("users/userProfile", { foundUser, userReviews });
+      const booksReadCount = foundUser.bookshelf.length;
+      res.render("users/userProfile", {
+        foundUser,
+        userReviews,
+        booksReadCount,
+      });
     }
   } catch (err) {
     req.flash(
@@ -110,7 +115,7 @@ module.exports.addToBookshelf = async (req, res) => {
     if (!existingBook) {
       user.bookshelf.push({ book: bookId, isShelved: true });
       await user.save();
-      req.flash("success", "Successfully added to bookshelf.");
+      req.flash("success", "Successfully added to Completed Bookshelf.");
       // res.redirect(`/users/${userId}`);
       res.redirect(`/books/${bookId}`);
     } else {
@@ -140,7 +145,10 @@ module.exports.removeFromBookshelf = async (req, res) => {
       //remove the book
       user.bookshelf.splice(bookIndex, 1);
       await user.save();
-      req.flash("success", "Successfully removed book from Bookshelf.");
+      req.flash(
+        "success",
+        "Successfully removed book from your Completed bookshelf."
+      );
       res.redirect(`/books/${bookId}`);
       // res.redirect(`/users/${userId}`);
     } else {
@@ -151,7 +159,7 @@ module.exports.removeFromBookshelf = async (req, res) => {
     console.error(error);
     req.flash(
       "error",
-      "An error occured while trying to remove book from bookshelf."
+      "An error occured while trying to remove book from your bookshelf."
     );
     res.redirect(`/users/${userId}`);
   }

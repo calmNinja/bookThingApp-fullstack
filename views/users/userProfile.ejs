@@ -52,6 +52,22 @@
       src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
       alt="user display image"
     />
+    <div>
+      <h3 class="fs-5">
+        <% if (booksReadCount === 0) { %> <% if (currentUser &&
+        currentUser._id.equals(foundUser._id)) { %>Books read: Your bookshelf is
+        currently empty. <a href="/books">Add books now!</a> <% } else { %> <%
+        if (currentUser && currentUser._id.equals(foundUser._id)) { %>Books
+        read: You haven't started your reading journey yet.
+        <a href="/books">Add books now!</a> <% } else { %> Books read: This user
+        hasn't started their reading journey yet. <% } %> <% } %> <% } else { %>
+        Books read:
+        <span style="font-weight: bold; color: #0066cc"
+          ><%= booksReadCount %></span
+        >
+        <% } %>
+      </h3>
+    </div>
   </div>
 
   <h3 class="mt-5">Bookshelf:</h3>

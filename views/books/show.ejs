@@ -18,7 +18,7 @@
               action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>"
               method="POST"
             >
-              <button class="btn btn-warning my-3">Want To Read</button>
+              <button class="btn btn-warning my-3">Mark As Read</button>
             </form>
 
             <% } else { %>
@@ -27,13 +27,13 @@
               action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>?_method=DELETE"
               method="POST"
             >
-              <button class="btn btn-success my-3">Shelved</button>
+              <button class="btn btn-success my-3">Read</button>
             </form>
             <% } %> <%} else {%>
             <a
               href="/login?returnTo=/books/<%= book._id %>"
               class="btn btn-warning my-3"
-              >Want To Read</a
+              >Mark As Read</a
             >
 
             <%}%> <%if(currentUser && currentUser.isAdmin){%>
