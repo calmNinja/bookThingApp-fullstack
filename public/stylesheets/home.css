@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+/* Section 1 Styling Begins */
+#showcase {
+    height: 66vh;
+    /* max-width: 100vw; */
+    font-family: 'Play', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTJ8fGJvb2tzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');
+    background-position: center;
+    background-size: contain;
+}
+
+.content-wrap{
+    background-color: rgba(10,12,15,0.9);
+    justify-content: space-around;
+}
+.svg-icon {
+    width: 6em;
+    height: 6em;
+    margin-right: 0.25em;
+  }
+
+
+#showcase .svg-icon,
+#showcase h1,
+#showcase p {
+    padding: 10px;
+    margin: 10px;
+    color: antiquewhite;
+}
+#showcase h1 {
+    font-weight: 700;
+    font-size: 4.5em;
+    color:white;
+    text-shadow:
+    -2px -2px 0 #f04f25, 
+    2px -2px 0 #f04f25,  
+    -2px 2px 0 #f04f25,  
+    2px 2px 0 #f04f25; 
+}
+#showcase p {
+    letter-spacing: 0.75em;
+    font-weight: 400;
+    font-size: 1.35em;
+    margin-top: -0.75em;
+}
+
+.btn {
+    background-color: #f04f25;
+    color:white;
+    display: inline-block;
+}
+
+.btn-browse{
+    float:right;
+    background-color: white;
+    color: #f04f25;
+    font-weight: 500;
+    margin-right: 2em;
+}
+.user-buttons button {
+    padding: 0.5em 1.75em;
+    font-size: 1.15em;
+    margin: auto 1em;
+    color: antiquewhite;
+    font-weight: 700;
+}
+
+
+/* Sections 1 styling ends */
+
+
+
+/* Media queries */
