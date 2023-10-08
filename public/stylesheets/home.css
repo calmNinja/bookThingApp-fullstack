@@ -8,10 +8,13 @@ body {
     height: 100vh;
     max-width: 100vw;
     overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Merriweather', serif;
+ 
 }
 /* Section 1 Styling Begins */
 #showcase {
-    height: 66vh;
+    min-height: 70vh;
     /* max-width: 100vw; */
     font-family: 'Play', sans-serif;
     background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTJ8fGJvb2tzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');
@@ -78,6 +81,33 @@ body {
 
 /* Sections 1 styling ends */
 
+/* Section 2 styling begins */
+.img-thumbnail{
+    border:0;
+    height:18rem;
+}
 
+h2 {
+    color: #333;
+    font-family: 'Play', sans-serif;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 
+.card-body a {
+    color: #323e41;
+    font-size: 1.5em; 
+    font-weight: bold; 
+    text-decoration: none; 
+    transition: color 0.2s; 
+  }
+
+.card-body a:hover {
+    color: #f04f25; 
+  }
+/* Section 2 styling ends */
+
+/* Section 3 styling begins */
+
+/* Section 3 styling ends */
 /* Media queries */

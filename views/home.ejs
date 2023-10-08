@@ -18,7 +18,7 @@
     />
     <link rel="stylesheet" href="/stylesheets/home.css" />
   </head>
-  <body class="d-flex text-center">
+  <body class="d-flex flex-column text-center">
     <!-- Showcase Section begins -->
     <section id="showcase" class="d-flex w-100 mx-auto flex-column">
       <div class="content-wrap d-flex flex-column h-100 w-100 p-3">
@@ -70,7 +70,33 @@
       </div>
     </section>
     <!-- Showcase Section ends -->
+    <!-- Book Display Section 2 begins -->
+    <section id="book-display">
+      <div class="container">
+        <h2 class="text-center mt-5 mb-2 p-3">Discover Only The Best</h2>
+        <div class="row gx-3 gy-1 mb-3">
+          <%for(let book of books){%>
+          <div class="col-12 col-md-6 col-lg-3 py-5">
+            <div class="card shadow h-100 mx-auto" style="width: 12rem">
+              <a href="/books/<%=book._id%>"
+                ><img src="<%=book.image%>" class="img-thumbnail" alt=""
+              /></a>
+              <div class="card-body book-cards">
+                <a href="/books/<%=book._id%>"
+                  ><h5 class="card-title"><%=book.title%></h5></a
+                >
+                <h6 class="card-subtitle text-muted"><%=book.author%></h6>
+              </div>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+    </section>
+    <!-- Book Display Section 2 ends -->
+    <!-- Book Review Section begins -->
 
+    <!-- Book Review Section ends -->
     <!--  <%- include('./partials/footer') %> -->
 
     <script

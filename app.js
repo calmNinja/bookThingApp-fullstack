@@ -78,9 +78,13 @@ app.use("/books/:id/reviews", reviewsRoutes);
 app.use("/", usersRoutes);
 
 //Route to Home Page
-app.get("/", (req, res) => {
-  res.render("home");
-});
+app.get(
+  "/",
+  catchAsync(async (req, res) => {
+    const books = await Book.find({}).limit(4);
+    res.render("home", { books });
+  })
+);
 
 //Express Error Handling
 app.all("*", (req, res, next) => {
