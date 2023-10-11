@@ -8,27 +8,26 @@ body {
     height: 100vh;
     max-width: 100vw;
     overflow-x: hidden;
-    font-family: 'Montserrat', sans-serif;
     font-family: 'Merriweather', serif;
- 
 }
-/* Section 1 Styling Begins */
+
+/* Section 1: Showcase */
 #showcase {
-    min-height: 70vh;
-    /* max-width: 100vw; */
+    min-height: 75vh;
     font-family: 'Play', sans-serif;
     background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTJ8fGJvb2tzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');
     background-position: center;
     background-size: contain;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .content-wrap{
-    background-color: rgba(10,12,15,0.9);
+    background-color: rgba(20, 145, 155, 0.9); 
     justify-content: space-around;
 }
 .svg-icon {
-    width: 6em;
-    height: 6em;
+    width: 5em;
+    height: 5em;
     margin-right: 0.25em;
   }
 
@@ -36,62 +35,76 @@ body {
 #showcase .svg-icon,
 #showcase h1,
 #showcase p {
-    padding: 10px;
-    margin: 10px;
+    padding: 0.5rem;
+    margin: 0.5rem;
     color: antiquewhite;
 }
 #showcase h1 {
     font-weight: 700;
     font-size: 4.5em;
-    color:white;
-    text-shadow:
-    -2px -2px 0 #f04f25, 
-    2px -2px 0 #f04f25,  
-    -2px 2px 0 #f04f25,  
-    2px 2px 0 #f04f25; 
+    text-shadow:  -2px -2px 0 #00757a, 
+    2px -2px 0 #00757a,  
+    -2px 2px 0 #00757a,  
+    2px 2px 0 #00757a;
+    color: white;
 }
 #showcase p {
     letter-spacing: 0.75em;
     font-weight: 400;
     font-size: 1.35em;
-    margin-top: -0.75em;
+    margin-top: -2em;
+    color: black;
 }
 
 .btn {
-    background-color: #f04f25;
+    background-color: black; 
     color:white;
     display: inline-block;
+    transition: all 0.7s, ease-in-out;
+}
+.btn:hover {
+    background-color: white;
+    color: #00757a;
 }
 
 .btn-browse{
     float:right;
     background-color: white;
-    color: #f04f25;
+    color: black; 
     font-weight: 500;
     margin-right: 2em;
 }
+
 .user-buttons button {
     padding: 0.5em 1.75em;
     font-size: 1.15em;
-    margin: auto 1em;
+    margin: 5em 1em 0 1em;
     color: antiquewhite;
     font-weight: 700;
 }
 
-
-/* Sections 1 styling ends */
-
-/* Section 2 styling begins */
+#book-display {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+/* Section 2 Book Display */
 .img-thumbnail{
     border:0;
     height:18rem;
 }
 
 h2 {
-    color: #333;
+    color: black;
     font-family: 'Play', sans-serif;
     font-size: 2.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    border: 1px solid #00757a;
+}
+
+.card:hover .card-body a {
+    color: #00757a; 
 }
 
 .card-body a {
@@ -102,12 +115,122 @@ h2 {
     transition: color 0.2s; 
   }
 
-.card-body a:hover {
-    color: #f04f25; 
-  }
-/* Section 2 styling ends */
+/* Sections 3: Book Review */
 
-/* Section 3 styling begins */
+#book-review {
+    background-color: rgba(20, 145, 155, 0.9);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
 
-/* Section 3 styling ends */
+.reviews{
+    width: 100%;
+    padding: 1rem;
+    margin: 0 auto;
+    font-size: 1.1em;
+}
+
+.content-width{
+    max-width: 25rem;
+    margin: 0 auto;
+}
+
+/* Section 4: BookShelf */
+#bookshelf{
+    padding:2.5em;
+}
+
+h4{
+    line-height: 2em;
+}
+
+
 /* Media queries */
+@media only screen and (max-width: 1024px) {
+    #showcase {
+        min-height: 55vh;
+    }
+    #showcase p {
+        font-size: 1.2em;
+    }
+    .svg-icon {
+        width: 5em;
+        height: 5em;
+      }
+    .content-width {
+        max-width: 20rem;
+        padding:2rem;
+    }
+    h2{
+        font-size: 3em;
+    }
+
+   
+}
+@media only screen and (max-width: 768px) {
+    #showcase {
+        min-height: 65vh;
+    }
+    #showcase .svg-icon,
+    #showcase h1,
+    #showcase p {
+    padding: 0.25rem;
+    margin: 0.25rem;
+    }
+ 
+    #showcase p {
+        letter-spacing: 0.75em;
+        font-size: 1em;
+        margin-top: -5em;
+    }
+    .svg-icon {
+        width: 4em;
+        height: 4em;
+    }
+    h2{
+        font-size: 2.5em;
+    }
+
+}
+@media only screen and (max-width: 480px) {
+    
+    #showcase h1 {
+        font-size: 3em;
+    }
+    .svg-icon {
+        width: 2.75em;
+        height: 2.75em;
+        margin-right: 0;
+      }
+    #showcase p {
+        font-size: 0.75em;
+    }
+    #showcase .svg-icon,
+    #showcase h1,
+    #showcase p {
+    padding: 0.15rem 0;
+    }
+    #showcase p {
+        letter-spacing: 0.5em;
+    }
+
+    .btn-browse{
+     margin-right: 1em; 
+     padding: 0.15em;
+    } 
+    .user-buttons button {
+    padding: 0.2em 1.25em;
+    font-size: 1em;
+    margin: auto 0.5em;
+    margin: 5em 1em 0;
+    font-weight: 700; 
+    }
+
+    h2 {
+        font-size: 1.35em;
+    }
+   #book-display .card-body {
+    padding: 0.65rem;
+   }
+   
+
+}

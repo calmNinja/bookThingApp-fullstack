@@ -20,7 +20,10 @@
   </head>
   <body class="d-flex flex-column text-center">
     <!-- Showcase Section begins -->
-    <section id="showcase" class="d-flex w-100 mx-auto flex-column">
+    <section
+      id="showcase"
+      class="d-flex w-100 mx-auto flex-column justify-content-center align-items-center"
+    >
       <div class="content-wrap d-flex flex-column h-100 w-100 p-3">
         <a href="/books"
           ><button class="btn btn-browse fs-4 px-3">Browse Books</button></a
@@ -71,12 +74,14 @@
     </section>
     <!-- Showcase Section ends -->
     <!-- Book Display Section 2 begins -->
-    <section id="book-display">
+    <section id="book-display" class="py-2 py-md-4 py-lg-5">
       <div class="container">
-        <h2 class="text-center mt-5 mb-2 p-3">Discover Only The Best</h2>
+        <h2 class="text-center mt-1 mb-md-4 mb-lg-2 py-3">
+          Discover Only The Best
+        </h2>
         <div class="row gx-3 gy-1 mb-3">
           <%for(let book of books){%>
-          <div class="col-12 col-md-6 col-lg-3 py-5">
+          <div class="col-12 col-md-6 col-lg-3 py-2 py-md-4 py-lg-5">
             <div class="card shadow h-100 mx-auto" style="width: 12rem">
               <a href="/books/<%=book._id%>"
                 ><img src="<%=book.image%>" class="img-thumbnail" alt=""
@@ -94,10 +99,87 @@
       </div>
     </section>
     <!-- Book Display Section 2 ends -->
-    <!-- Book Review Section begins -->
 
+    <!-- Book Review Section begins -->
+    <section id="book-review" class="py-2 py-md-4 py-lg-5">
+      <div class="container">
+        <h2 class="text-center py-3 mb-md-3 mb-lg-5">
+          Express Your Bookish Emotions
+        </h2>
+        <div class="reviews">
+          <div class="row mb-5 g-2">
+            <!-- First Book review -->
+            <div class="col-12 col-sm-6 d-md-flex justify-content-md-center">
+              <img
+                src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1345958969l/128029.jpg"
+                class="img-thumbnail"
+                style="width: 12rem"
+                alt="book review 1"
+              />
+            </div>
+            <div
+              class="col-12 col-sm-6 align-self-center justify-content-md-center"
+            >
+              <div class="content-width">
+                <blockquote class="mb-4 blockquote">
+                  "I te wahangūtanga o te iwi, ka tīkina atu e Māui te kauae a
+                  tōna tipuna mai i tana tātau, me tana piupiu haere. He maha
+                  ngā mea i kīia kāore e taea, ēngari i taea e au, te tiki i te
+                  ahi mai i a Mahuika, te heke atu ki Rarohenga."
+                </blockquote>
+                <figcaption class="blockquote-footer" style="color: white">
+                  <b>Sheldon Cooper</b>
+                </figcaption>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-md-1 mb-lg-4 g-2">
+            <div
+              class="col-12 col-sm-6 d-md-flex justify-content-md-center order-sm-1"
+            >
+              <img
+                src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386605169l/17899948.jpg"
+                class="img-thumbnail"
+                style="width: 12rem"
+                alt="book review 2"
+              />
+            </div>
+
+            <div
+              class="col-12 col-sm-6 align-self-center justify-content-md-center mb-4"
+            >
+              <div class="content-width">
+                <blockquote class="mb-4 blockquote">
+                  "Ā, tere tonu tētahi o ngā tuākana ahi. hopu i te rā, he nui
+                  ake i ngā manu kua mau i a koe! Ka rongo koe i tōna wera, ka
+                  kī atu tētahi. "Te āhua nei kua pakapaka ōna whakaaro i te rā,
+                  te kī a tētahi atu, me tā rātau kata anō."
+                </blockquote>
+                <figcaption class="blockquote-footer" style="color: white">
+                  <b>Will Wheaton</b>
+                </figcaption>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- Book Review Section ends -->
-    <!--  <%- include('./partials/footer') %> -->
+    <!-- Bookshelf Section begins -->
+    <section id="bookshelf" class="py-2 py-md-4 py-lg-5">
+      <div class="container p-4 text-center">
+        <h2 class="mb-md-3 mb-lg-5 py-3">Record Your Reading Obsession</h2>
+        <h4>
+          Ellie has read <span style="color: #f04f25"><b>25</b></span> books!
+        </h4>
+        <h4>
+          Sam has read <span style="color: #f04f25"><b>38</b></span> books!
+        </h4>
+      </div>
+    </section>
+    <!-- Bookshelf Section ends -->
+
+    <%- include('./partials/footer') %>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

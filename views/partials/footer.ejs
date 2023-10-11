@@ -1,7 +1,15 @@
 <footer class="footer text-center bg-dark mt-auto py-3">
   <div class="container">
-    <span class="text-muted"
-      >&copy; BookThing 2023 - Developed by <a href="#">calmNinja</a></span
+    <span style="color: antiquewhite"
+      >&copy; BookThing <span id="current-year"></span> - Developed by
+      <a href="#">calmNinja</a></span
     >
   </div>
 </footer>
+<script>
+  const currentYear = new Date().getFullYear();
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("current-year").textContent = currentYear;
+  });
+</script>
+<script type="module" src="js/bundle.js"></script>
