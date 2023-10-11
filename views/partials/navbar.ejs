@@ -1,12 +1,31 @@
 <style>
   .svg-icon {
-    width: 2em;
-    height: 2em;
+    width: 1.5em;
+    height: 1.5em;
     margin-right: 0.25em;
+  }
+  .navbar {
+    background: #00757a;
+    font-family: "Play", sans-serif;
+  }
+  .navbar .navbar-brand {
+    font-weight: 700;
+    color: white;
+  }
+  .navbar .navbar-brand:hover,
+  .navbar .nav-link:hover,
+  .navbar .navbar-nav a:hover {
+    color: black;
+    transition: all 0.3s ease-in;
+  }
+
+  .navbar .nav-link,
+  .navbar .navbar-nav a {
+    color: white;
   }
 </style>
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg">
   <div class="container-fluid">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +60,9 @@
         <rect width="6" height="1" x="11" y="51" fill="#005ece"></rect>
       </g>
     </svg>
-    <a class="navbar-brand" href="/">BookThing</a>
+    <a class="navbar-brand" href="<%= currentUser ? '/books' : '/' %>"
+      >BookThing</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -56,7 +77,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="<%= currentUser ? '/books' : '/' %>"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/books">Books</a>
