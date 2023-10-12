@@ -1,24 +1,57 @@
 <% layout('./layouts/boilerplate') %>
+<style>
+  .book-card .card {
+    width: 16rem;
+  }
+  .review-card a {
+    color: rgb(0, 119, 128);
+    text-decoration: none;
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+  }
+  .review-card a:hover {
+    color: rgba(31, 193, 101, 0.8);
+  }
+  @media only screen and (max-width: 1024px) {
+    .book-card .card {
+      width: 12rem;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .book-card .card {
+      width: 12rem;
+    }
+  }
+</style>
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
 <div class="container">
   <div class="book-wrapper">
     <div class="row justify-content-center">
-      <div class="col-lg-4 mb-3">
-        <div class="card shadow mb-3" style="width: 18rem">
+      <div class="col-lg-4 mb-3 book-card">
+        <div class="card shadow mb-3">
           <img
             src="<%=book.image%>"
             class="card-img-top"
             alt="Cover Not Available"
           />
           <div class="card-body text-center">
-            <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
-            <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
+            <h6 class="card-title">
+              Average rating:
+              <span class="text-success"
+                ><strong><%=book.avgRating%></strong></span
+              >
+            </h6>
+            <h6 class="card-subtitle">
+              Liked by
+              <span class="text-danger"><strong><%=book.liked%>%</strong></span>
+            </h6>
             <%if(currentUser){%> <% if (!isShelved) { %>
             <form
               action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>"
               method="POST"
             >
-              <button class="btn btn-warning my-3">Mark As Read</button>
+              <button class="btn btn-warning mt-3">Mark As Read</button>
             </form>
 
             <% } else { %>
@@ -27,7 +60,7 @@
               action="/users/<%= currentUser._id %>/bookshelf/<%= book._id %>?_method=DELETE"
               method="POST"
             >
-              <button class="btn btn-success my-3">Read</button>
+              <button class="btn btn-success mt-3 px-4">Read</button>
             </form>
             <% } %> <%} else {%>
             <a
@@ -45,7 +78,7 @@
         </div>
       </div>
       <div class="col-lg-8 mb-3">
-        <div class="card shadow w-100 mb-3" style="width: 18rem">
+        <div class="card shadow w-100 mb-3 mx-auto" style="width: 18rem">
           <div class="card-body">
             <h3 class="card-title text-muted">
               <%=book.title%> by <%=book.author%>
@@ -60,7 +93,7 @@
       </div>
     </div>
     <div class="row my-3">
-      <div class="col-6 offset-4">
+      <div class="col-lg-6 offset-lg-4">
         <% if (currentUser) { %> <% if (isShelved) { %> <% if (!userHasReviewed)
         { %>
         <h2>Write A Review</h2>
@@ -148,7 +181,7 @@
         <% if (book.reviews.length === 0) { %>
         <p>There are no reviews for this book yet. Be the first to review!</p>
         <% } else { %> <% for(let review of book.reviews) { %>
-        <div class="card shadow mb-3">
+        <div class="card shadow review-card mb-3">
           <div class="card-body">
             <h5 class="card-title">
               <a href="/users/<%=review.author._id%>"

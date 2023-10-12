@@ -1,0 +1,37 @@
+  .svg-icon {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.25em;
+  }
+  .navbar {
+    background: #00757a;
+    font-family: "Play", sans-serif;
+  }
+  .navbar .navbar-brand {
+    font-weight: 700;
+    color: white;
+  }
+  .navbar .navbar-brand:hover,
+  .navbar .nav-link:hover,
+  .navbar .navbar-nav a:hover {
+    color: black;
+    transition: all 0.3s ease-in;
+  }
+
+  .navbar .nav-link,
+  .navbar .navbar-nav a {
+    color: white;
+  }
+
+  .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  .custom-toggler.navbar-toggler {
+    border: 0;
+    box-shadow: none;
+  }
+  @media (max-width: 992px) {
+    .navbar-collapse.show {
+      margin-top: 0.5rem;
+    }
+  }
