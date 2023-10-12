@@ -191,7 +191,9 @@
             <p class="starability-result" data-rating="<%=review.rating%>">
               Rated: <%=review.rating%> stars
             </p>
-            <p><%=review.body%></p>
+            <p class="fs-5">
+              <em><%=review.body%></em>
+            </p>
             <%if(currentUser && review.author.equals(currentUser._id) ||
             currentUser && currentUser.isAdmin){%>
             <form

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-4 mb-3">
         <!-- Book Card -->
-        <div class="card shadow mb-3" style="width: 18rem">
+        <div class="card shadow mb-3" style="width: 12rem">
           <img
             src="<%=book.image%>"
             class="card-img-top"
@@ -14,9 +14,6 @@
           <div class="card-body text-center">
             <h6 class="card-title">Average rating: <%=book.avgRating%></h6>
             <h6 class="card-subtitle">Liked by <%=book.liked%>%</h6>
-            <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
-              <button class="btn btn-danger my-3">Delete</button>
-            </form>
           </div>
         </div>
       </div>
