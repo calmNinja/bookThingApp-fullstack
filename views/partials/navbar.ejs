@@ -23,48 +23,65 @@
   .navbar .navbar-nav a {
     color: white;
   }
+
+  .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  .custom-toggler.navbar-toggler {
+    /* border-color: white; */
+    border: 0;
+    box-shadow: none;
+  }
+  @media (max-width: 992px) {
+    .navbar-collapse.show {
+      margin-top: 0.5rem;
+    }
+  }
 </style>
 
 <nav class="navbar sticky-top navbar-expand-lg">
-  <div class="container-fluid">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 64 64"
-      id="book"
-      class="svg-icon"
+  <div class="container">
+    <!-- logo -->
+
+    <a class="navbar-brand fs-4" href="<%= currentUser ? '/books' : '/' %>">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 64 64"
+        id="book"
+        class="svg-icon"
+      >
+        <g data-name="Book-notebook">
+          <rect width="58" height="40" x="3" y="15" fill="#007579"></rect>
+          <path
+            fill="#ff6243"
+            d="M32,55a4,4,0,0,0-4-4H7V11H18V47h6A8,8,0,0,1,32,55Z"
+          ></path>
+          <path
+            fill="#ffa733"
+            d="M57,11V51H36a4,4,0,0,0-4,4V15a4,4,0,0,1,4-4Z"
+          ></path>
+          <path
+            fill="#ffdaaa"
+            d="M32,15V55a8,8,0,0,0-8-8H18V7h6A8,8,0,0,1,32,15Z"
+          ></path>
+          <polygon
+            fill="#006df0"
+            points="17 51 17 59 14 56 11 59 11 51 17 51"
+          ></polygon>
+          <rect width="6" height="8" x="47" y="51" fill="#46f8ff"></rect>
+          <polygon
+            fill="#ffda44"
+            points="53 11 53 26 48 22 43 26 43 11 53 11"
+          ></polygon>
+          <rect width="6" height="1" x="47" y="51" fill="#00d7df"></rect>
+          <rect width="6" height="1" x="11" y="51" fill="#005ece"></rect>
+        </g>
+      </svg>
+      BookThing</a
     >
-      <g data-name="Book-notebook">
-        <rect width="58" height="40" x="3" y="15" fill="#007579"></rect>
-        <path
-          fill="#ff6243"
-          d="M32,55a4,4,0,0,0-4-4H7V11H18V47h6A8,8,0,0,1,32,55Z"
-        ></path>
-        <path
-          fill="#ffa733"
-          d="M57,11V51H36a4,4,0,0,0-4,4V15a4,4,0,0,1,4-4Z"
-        ></path>
-        <path
-          fill="#ffdaaa"
-          d="M32,15V55a8,8,0,0,0-8-8H18V7h6A8,8,0,0,1,32,15Z"
-        ></path>
-        <polygon
-          fill="#006df0"
-          points="17 51 17 59 14 56 11 59 11 51 17 51"
-        ></polygon>
-        <rect width="6" height="8" x="47" y="51" fill="#46f8ff"></rect>
-        <polygon
-          fill="#ffda44"
-          points="53 11 53 26 48 22 43 26 43 11 53 11"
-        ></polygon>
-        <rect width="6" height="1" x="47" y="51" fill="#00d7df"></rect>
-        <rect width="6" height="1" x="11" y="51" fill="#005ece"></rect>
-      </g>
-    </svg>
-    <a class="navbar-brand" href="<%= currentUser ? '/books' : '/' %>"
-      >BookThing</a
-    >
+    <!-- Toggle button -->
     <button
-      class="navbar-toggler"
+      class="navbar-toggler custom-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
@@ -74,29 +91,59 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a
-            class="nav-link active"
+            class="nav-link"
             aria-current="page"
             href="<%= currentUser ? '/books' : '/' %>"
-            >Home</a
+          >
+            Home</a
           >
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/books">Books</a>
         </li>
       </ul>
-    </div>
-    <div class="navbar-nav ml-auto">
-      <%if(!currentUser){%>
-      <a class="nav-link" href="/register">Register</a>
-      <a class="nav-link" href="/login">Login</a>
-      <%}else {%>
-      <a class="nav-link" href="/users/<%=currentUser._id%>">My Account</a>
-      <a class="nav-link" href="/logout">Logout</a>
-      <%}%>
+      <!-- Links for large screens -->
+      <ul class="navbar-nav ms-auto d-none d-lg-flex">
+        <%if(!currentUser){%>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <%}else {%>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/<%=currentUser._id%>">My Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <%}%>
+      </ul>
+
+      <!-- Links for small screens -->
+      <ul class="navbar-nav d-lg-none">
+        <%if(!currentUser){%>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <%}else {%>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/<%=currentUser._id%>">My Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <%}%>
+      </ul>
     </div>
   </div>
 </nav>
