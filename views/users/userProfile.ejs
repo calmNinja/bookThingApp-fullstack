@@ -43,15 +43,15 @@
   </div>
   <!-- Books Read Bookshelf -->
   <div>
-    <h3 class="mt-5 mb-lg-4 mb-md-3"><strong>Read Bookshelf:</strong></h3>
-    <div class="row">
+    <h3 class="mt-5 mb-2 mb-md-3"><strong>Read Bookshelf:</strong></h3>
+    <div class="row g-3 my-2">
       <% if (foundUser.bookshelf.length === 0) { %> <% if (currentUser &&
       currentUser._id.equals(foundUser._id)) { %>
       <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
       <% } else { %>
       <p>This user's bookshelf is currently empty.</p>
       <% } %> <% } else { %> <% foundUser.bookshelf.forEach((item) => { %>
-      <div class="col-md-3 book-card">
+      <div class="col-6 col-md-3 col-lg-2 book-card">
         <div class="card shadow">
           <div class="position-relative">
             <% if (currentUser && currentUser._id.equals(foundUser._id)) { %>
@@ -64,15 +64,15 @@
             </form>
             <%}%>
           </div>
-          <div class="card-body">
-            <a href="/books/<%= item.book._id %>">
-              <img
-                src="<%= item.book.image %>"
-                alt="<%= item.book.title %> Image"
-                class="img-thumbnail"
-              />
-            </a>
-          </div>
+          <!-- <div class="card-body"> -->
+          <a href="/books/<%= item.book._id %>">
+            <img
+              src="<%= item.book.image %>"
+              alt="<%= item.book.title %> Image"
+              class="img-thumbnail img-fluid"
+            />
+          </a>
+          <!-- </div> -->
         </div>
       </div>
       <% }); %> <% } %>
@@ -80,7 +80,7 @@
   </div>
   <!-- User's Book Reviews -->
   <div>
-    <h3 class="mt-5 mb-lg-4 mb-md-3"><strong>Reviewed:</strong></h3>
+    <h3 class="mt-5 mb-3 mb-md-4"><strong>Reviewed:</strong></h3>
     <% if (userReviews && userReviews.length > 0) { %> <%
     userReviews.forEach((review) => { %>
     <div class="card shadow mb-3">
