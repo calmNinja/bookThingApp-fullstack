@@ -1,0 +1,82 @@
+/* General & User Profile Header */
+  body {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+  h1 {
+    font-family: "Play", serif;
+    color: #00757a;
+    font-size: 1.35rem;
+  }
+  h3 {
+    font-family: "Play", serif;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: #f04f25;
+  }
+
+  .books-read {
+    display: inline;
+    margin-right: 5px;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: #00757a;
+  }
+
+  .books-read-count {
+    font-weight: bold;
+    color: #f04f25;
+  }
+  /* Bookshelf */
+  .book-card .card {
+    max-width: 50%;
+    max-height: fit-content;
+    padding: 0;
+  }
+  .book-card .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-card img {
+    margin: 0;
+    width: 15rem;
+    height: 12rem;
+    /* max-height: 10rem; */
+    /* object-fit: cover; */
+  }
+  /* Book Reviews */
+  .card-title a {
+    color: #00757a;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .card-title a:hover {
+    color: #00ab66;
+  }
+
+  .horizontal-user-card {
+    border-radius: 0;
+    max-width: 30rem;
+    overflow: hidden;
+    border-radius: 4em;
+  }
+/* Media Queries */
+  @media only screen and (max-width: 1024px) {
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    .horizontal-user-card {
+      max-width: 65%;
+      margin: 0 auto;
+    }
+    .horizontal-user-card img {
+      max-width: 100%;
+      height: auto;
+    }
+    .horizontal-user-card .card-body {
+      text-align: center;
+    }
+  }

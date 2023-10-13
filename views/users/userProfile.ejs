@@ -1,84 +1,8 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
-<style>
-  body {
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  }
-  h1 {
-    font-family: "Play", serif;
-    color: #00757a;
-    font-size: 1.35rem;
-  }
-  h3 {
-    font-family: "Play", serif;
-    color: #f04f25;
-  }
-
-  .books-read {
-    display: inline;
-    margin-right: 5px;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    color: #00757a;
-  }
-
-  .books-read-count {
-    font-weight: bold;
-    color: #f04f25;
-  }
-  .book-card .card {
-    max-width: 50%;
-    max-height: fit-content;
-    padding: 0;
-  }
-  .book-card .card-body {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .book-card img {
-    margin: 0;
-    width: 15rem;
-    height: 12rem;
-    /* max-height: 10rem; */
-    /* object-fit: cover; */
-  }
-  .card-title a {
-    color: #00757a;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .card-title a:hover {
-    color: #00ab66;
-  }
-
-  .usercard {
-    width: 12rem;
-    border: 0;
-    border-radius: 0;
-    border-bottom-right-radius: 4em;
-    border-top-left-radius: 4em;
-    overflow: hidden;
-  }
-
-  @media only screen and (max-width: 1024px) {
-    h1 {
-      font-size: 1.2rem;
-    }
-  }
-  @media only screen and (max-width: 480px) {
-    .usercard {
-      width: 10rem;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 1.1rem;
-    }
-  }
-</style>
-
+<link rel="stylesheet" href="/stylesheets/userProfile.css" />
 <div class="container mb-5">
+  <!-- Edit Profile/Change Password buttons -->
   <div class="text-center text-md-end">
     <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
     <a href="/users/<%= foundUser._id %>/edit" class="btn btn-sm btn-secondary"
@@ -91,28 +15,35 @@
     >
     <%}%>
   </div>
-  <!-- User Profile -->
-  <div class="user-profile-header">
-    <div class="card shadow mt-5 usercard">
-      <img
-        src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
-        class="card-img-top"
-        alt="user display image"
-      />
-      <div class="card-body">
-        <h1>
-          <strong><%=foundUser.firstname%> <%=foundUser.lastname%></strong>
-        </h1>
-        <p class="card-text">
-          Books read:
-          <span class="books-read-count"><%= booksReadCount %></span>
-        </p>
+  <!-- Horizonatal card User Profile -->
+  <div class="card shadow horizontal-user-card my-5">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
+          class="img-fluid rounded-start"
+          alt="user display image"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h1 class="card-title py-sm-1 py-md-3">
+            <strong><%=foundUser.firstname%> <%=foundUser.lastname%></strong>
+          </h1>
+          <p class="h6 mb-1">
+            <strong>Username:</strong> <%= foundUser.username %>
+          </p>
+          <p class="card-text">
+            <strong>Books Read:</strong>
+            <span class="books-read-count"><%= booksReadCount %></span>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-
+  <!-- Books Read Bookshelf -->
   <div>
-    <h3 class="mt-5 mb-lg-4 mb-md-3"><u>Read Bookshelf</u></h3>
+    <h3 class="mt-5 mb-lg-4 mb-md-3"><strong>Read Bookshelf:</strong></h3>
     <div class="row">
       <% if (foundUser.bookshelf.length === 0) { %> <% if (currentUser &&
       currentUser._id.equals(foundUser._id)) { %>
@@ -146,8 +77,10 @@
       </div>
       <% }); %> <% } %>
     </div>
-
-    <h3 class="mt-5 mb-lg-4 mb-md-3"><u>Reviewed</u></h3>
+  </div>
+  <!-- User's Book Reviews -->
+  <div>
+    <h3 class="mt-5 mb-lg-4 mb-md-3"><strong>Reviewed:</strong></h3>
     <% if (userReviews && userReviews.length > 0) { %> <%
     userReviews.forEach((review) => { %>
     <div class="card shadow mb-3">
@@ -186,7 +119,7 @@
     <p>You have not posted any book reviews yet.</p>
     <% } %>
   </div>
-
+  <!-- Delete User Account Button -->
   <div class="my-3 text-center">
     <form action="/users/<%= foundUser._id %>?_method=DELETE" method="POST">
       <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
