@@ -1,8 +1,13 @@
 <% layout('./layouts/boilerplate') %>
 <style>
+  body {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
   .book-card .card {
     width: 16rem;
   }
+
   .review-card a {
     color: rgb(0, 119, 128);
     text-decoration: none;
@@ -177,7 +182,7 @@
         >
         <% } %>
 
-        <h3 class="mt-4 mb-3">Reviews</h3>
+        <h3 class="mt-4 mb-3"><u>Reviews</u></h3>
         <% if (book.reviews.length === 0) { %>
         <p>There are no reviews for this book yet. Be the first to review!</p>
         <% } else { %> <% for(let review of book.reviews) { %>
@@ -191,7 +196,7 @@
             <p class="starability-result" data-rating="<%=review.rating%>">
               Rated: <%=review.rating%> stars
             </p>
-            <p class="fs-5">
+            <p>
               <em><%=review.body%></em>
             </p>
             <%if(currentUser && review.author.equals(currentUser._id) ||

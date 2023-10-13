@@ -1,10 +1,31 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
 <style>
-  #avatar-img {
-    height: 10em;
-    width: 10em;
-    object-fit: cover;
+  body {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+  h1 {
+    font-family: "Play", serif;
+    color: #00757a;
+    font-size: 1.35rem;
+  }
+  h3 {
+    font-family: "Play", serif;
+    color: #f04f25;
+  }
+
+  .books-read {
+    display: inline;
+    margin-right: 5px;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: #00757a;
+  }
+
+  .books-read-count {
+    font-weight: bold;
+    color: #f04f25;
   }
   .book-card .card {
     max-width: 50%;
@@ -23,132 +44,154 @@
     /* max-height: 10rem; */
     /* object-fit: cover; */
   }
+  .card-title a {
+    color: #00757a;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .card-title a:hover {
+    color: #00ab66;
+  }
+
+  .usercard {
+    width: 12rem;
+    border: 0;
+    border-radius: 0;
+    border-bottom-right-radius: 4em;
+    border-top-left-radius: 4em;
+    overflow: hidden;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .usercard {
+      width: 10rem;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.1rem;
+    }
+  }
 </style>
 
 <div class="container mb-5">
+  <div class="text-center text-md-end">
+    <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
+    <a href="/users/<%= foundUser._id %>/edit" class="btn btn-sm btn-secondary"
+      >Edit Profile</a
+    >
+    <a
+      href="/users/<%= foundUser._id %>/changepassword"
+      class="btn btn-sm btn-primary"
+      >Change Password</a
+    >
+    <%}%>
+  </div>
+  <!-- User Profile -->
   <div class="user-profile-header">
-    <div class="text-end">
-      <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
-      <a
-        href="/users/<%= foundUser._id %>/edit"
-        class="btn btn-sm btn-secondary"
-        >Edit Profile</a
-      >
-      <a
-        href="/users/<%= foundUser._id %>/changepassword"
-        class="btn btn-sm btn-primary"
-        >Change Password</a
-      >
-      <%}%>
-    </div>
-    <h2 class="text-primary">
-      <%=foundUser.firstname%> <%=foundUser.lastname%>
-    </h2>
-  </div>
-  <div>
-    <img
-      class="img-thumbnail my-3"
-      id="avatar-img"
-      src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
-      alt="user display image"
-    />
-    <div>
-      <h3 class="fs-5">
-        <% if (booksReadCount === 0) { %> <% if (currentUser &&
-        currentUser._id.equals(foundUser._id)) { %>Books read: Your bookshelf is
-        currently empty. <a href="/books">Add books now!</a> <% } else { %> <%
-        if (currentUser && currentUser._id.equals(foundUser._id)) { %>Books
-        read: You haven't started your reading journey yet.
-        <a href="/books">Add books now!</a> <% } else { %> Books read: This user
-        hasn't started their reading journey yet. <% } %> <% } %> <% } else { %>
-        Books read:
-        <span style="font-weight: bold; color: #0066cc"
-          ><%= booksReadCount %></span
-        >
-        <% } %>
-      </h3>
-    </div>
-  </div>
-
-  <h3 class="mt-5">Bookshelf:</h3>
-  <div class="row">
-    <% if (foundUser.bookshelf.length === 0) { %> <% if (currentUser &&
-    currentUser._id.equals(foundUser._id)) { %>
-    <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
-    <% } else { %>
-    <p>This user's bookshelf is currently empty.</p>
-    <% } %> <% } else { %> <% foundUser.bookshelf.forEach((item) => { %>
-    <div class="col-md-3 book-card">
-      <div class="card shadow">
-        <div class="position-relative">
-          <% if (currentUser && currentUser._id.equals(foundUser._id)) { %>
-          <form
-            action="/users/<%= currentUser._id %>/bookshelf/<%= item.book._id %>?_method=DELETE"
-            method="POST"
-            class="position-absolute top-0 end-0"
-          >
-            <button class="btn btn-sm btn-danger">X</button>
-          </form>
-          <%}%>
-        </div>
-        <div class="card-body">
-          <a href="/books/<%= item.book._id %>">
-            <img
-              src="<%= item.book.image %>"
-              alt="<%= item.book.title %> Image"
-              class="img-thumbnail"
-            />
-          </a>
-        </div>
+    <div class="card shadow mt-5 usercard">
+      <img
+        src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
+        class="card-img-top"
+        alt="user display image"
+      />
+      <div class="card-body">
+        <h1>
+          <strong><%=foundUser.firstname%> <%=foundUser.lastname%></strong>
+        </h1>
+        <p class="card-text">
+          Books read:
+          <span class="books-read-count"><%= booksReadCount %></span>
+        </p>
       </div>
     </div>
-    <% }); %> <% } %>
   </div>
 
-  <h3 class="mt-5">Reviewed:</h3>
-  <% if (userReviews && userReviews.length > 0) { %> <%
-  userReviews.forEach((review) => { %>
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <h5 class="card-title">
-        <a href="/books/<%= review.book._id %>"><%= review.book.title %></a>
-      </h5>
-      <p class="starability-result" data-rating="<%= review.rating %>">
-        <%= review.rating %>
-      </p>
-      <p><%= review.body %></p>
-      <!-- Edit/delete Reviews -->
-      <% if (currentUser && review.author.equals(currentUser._id) || currentUser
-      && currentUser.isAdmin) { %>
-      <form
-        action="/books/<%= review.book._id %>/reviews/<%= review._id %>/edit"
-        method="GET"
-        class="d-inline"
-      >
-        <button class="btn btn-sm btn-warning mb-3 ms-2">Edit</button>
-      </form>
-      <form
-        action="/books/<%= review.book._id %>/reviews/<%= review._id %>/?_method=DELETE"
-        method="POST"
-        class="d-inline"
-      >
-        <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
-      </form>
-
-      <% } %>
-      <!-- Edit/delete Reviews -->
+  <div>
+    <h3 class="mt-5 mb-lg-4 mb-md-3"><u>Read Bookshelf</u></h3>
+    <div class="row">
+      <% if (foundUser.bookshelf.length === 0) { %> <% if (currentUser &&
+      currentUser._id.equals(foundUser._id)) { %>
+      <p>Your bookshelf is currently empty. <a href="/books">Add Books</a></p>
+      <% } else { %>
+      <p>This user's bookshelf is currently empty.</p>
+      <% } %> <% } else { %> <% foundUser.bookshelf.forEach((item) => { %>
+      <div class="col-md-3 book-card">
+        <div class="card shadow">
+          <div class="position-relative">
+            <% if (currentUser && currentUser._id.equals(foundUser._id)) { %>
+            <form
+              action="/users/<%= currentUser._id %>/bookshelf/<%= item.book._id %>?_method=DELETE"
+              method="POST"
+              class="position-absolute top-0 end-0"
+            >
+              <button class="btn btn-sm btn-danger">X</button>
+            </form>
+            <%}%>
+          </div>
+          <div class="card-body">
+            <a href="/books/<%= item.book._id %>">
+              <img
+                src="<%= item.book.image %>"
+                alt="<%= item.book.title %> Image"
+                class="img-thumbnail"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <% }); %> <% } %>
     </div>
+
+    <h3 class="mt-5 mb-lg-4 mb-md-3"><u>Reviewed</u></h3>
+    <% if (userReviews && userReviews.length > 0) { %> <%
+    userReviews.forEach((review) => { %>
+    <div class="card shadow mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="/books/<%= review.book._id %>"><%= review.book.title %></a>
+        </h5>
+        <p class="starability-result" data-rating="<%= review.rating %>">
+          <%= review.rating %>
+        </p>
+        <p><%= review.body %></p>
+        <!-- Edit/delete Reviews -->
+        <% if (currentUser && review.author.equals(currentUser._id) ||
+        currentUser && currentUser.isAdmin) { %>
+        <form
+          action="/books/<%= review.book._id %>/reviews/<%= review._id %>/edit"
+          method="GET"
+          class="d-inline"
+        >
+          <button class="btn btn-sm btn-warning mb-3 ms-2">Edit</button>
+        </form>
+        <form
+          action="/books/<%= review.book._id %>/reviews/<%= review._id %>/?_method=DELETE"
+          method="POST"
+          class="d-inline"
+        >
+          <button class="btn btn-sm btn-danger mb-3 ms-2">Delete</button>
+        </form>
+
+        <% } %>
+        <!-- Edit/delete Reviews -->
+      </div>
+    </div>
+
+    <% }); %> <% } else { %>
+    <p>You have not posted any book reviews yet.</p>
+    <% } %>
   </div>
 
-  <% }); %> <% } else { %>
-  <p>You have not posted any book reviews yet.</p>
-  <% } %>
-</div>
-
-<div class="my-3 text-center">
-  <form action="/users/<%= foundUser._id %>?_method=DELETE" method="POST">
-    <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
-    <button class="btn btn-danger">Delete Account</button>
-    <% } %>
-  </form>
+  <div class="my-3 text-center">
+    <form action="/users/<%= foundUser._id %>?_method=DELETE" method="POST">
+      <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
+      <button class="btn btn-danger">Delete Account</button>
+      <% } %>
+    </form>
+  </div>
 </div>
