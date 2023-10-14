@@ -1,34 +1,5 @@
 <% layout('./layouts/boilerplate') %>
-<style>
-  body {
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  }
-  .book-card .card {
-    width: 16rem;
-  }
-
-  .review-card a {
-    color: rgb(0, 119, 128);
-    text-decoration: none;
-    font-family: "Play", sans-serif;
-    font-weight: 700;
-  }
-  .review-card a:hover {
-    color: rgba(31, 193, 101, 0.8);
-  }
-  @media only screen and (max-width: 1024px) {
-    .book-card .card {
-      width: 12rem;
-    }
-  }
-
-  @media only screen and (max-width: 480px) {
-    .book-card .card {
-      width: 12rem;
-    }
-  }
-</style>
+<link rel="stylesheet" href="/stylesheets/show.css" />
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
 <div class="container">
   <div class="book-wrapper">
@@ -85,8 +56,9 @@
       <div class="col-lg-8 mb-3">
         <div class="card shadow w-100 mb-3 mx-auto" style="width: 18rem">
           <div class="card-body">
-            <h3 class="card-title text-muted">
-              <%=book.title%> by <%=book.author%>
+            <h3 class="card-title">
+              <%=book.title%> by
+              <span class="text-muted"><%=book.author%></span>
             </h3>
             <h4><%=book.series%></h4>
             <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%></p>

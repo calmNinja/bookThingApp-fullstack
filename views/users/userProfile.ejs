@@ -120,7 +120,7 @@
     <% } %>
   </div>
   <!-- Delete User Account Button -->
-  <div class="my-3 text-center">
+  <div class="mt-5 mb-3 text-center">
     <form action="/users/<%= foundUser._id %>?_method=DELETE" method="POST">
       <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
       <button class="btn btn-danger">Delete Account</button>

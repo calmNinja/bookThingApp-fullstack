@@ -1,0 +1,32 @@
+ body {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+  .book-card .card {
+    width: 16rem;
+  }
+
+  h3 {
+    color: #323e41;
+  }
+
+  .review-card a {
+    color: rgb(0, 119, 128);
+    text-decoration: none;
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+  }
+  .review-card a:hover {
+    color: rgba(31, 193, 101, 0.8);
+  }
+  @media only screen and (max-width: 1024px) {
+    .book-card .card {
+      width: 12rem;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .book-card .card {
+      width: 12rem;
+    }
+  }

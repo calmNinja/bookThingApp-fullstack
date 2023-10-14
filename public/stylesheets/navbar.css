@@ -5,10 +5,13 @@
   }
   .navbar {
     background: #00757a;
-    font-family: "Play", sans-serif;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-weight: 700;
   }
   .navbar .navbar-brand {
-    font-weight: 700;
+    font-family: "Play", sans-serif;
+    /* font-weight: 700; */
     color: white;
   }
   .navbar .navbar-brand:hover,
