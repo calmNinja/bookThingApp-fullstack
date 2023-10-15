@@ -108,6 +108,9 @@ module.exports.validateUserProfileEdit = (req, res, next) => {
 module.exports.validatePasswordChange = (req, res, next) => {
   const { error } = passwordChangeSchema.validate(req.body);
   if (error) {
+    if (error.details[0].message.includes("[ref:newPassword]")) {
+      throw new ExpressError("Passwords do not match", 400);
+    }
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
   } else {

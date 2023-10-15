@@ -70,7 +70,7 @@ module.exports.logoutUser = (req, res, next) => {
       return next(err);
     }
     req.flash("success", "You've been logged out!");
-    res.redirect("/");
+    res.redirect("/login");
   });
 };
 
@@ -115,8 +115,7 @@ module.exports.addToBookshelf = async (req, res) => {
     if (!existingBook) {
       user.bookshelf.push({ book: bookId, isShelved: true });
       await user.save();
-      req.flash("success", "Successfully added to Completed Bookshelf.");
-      // res.redirect(`/users/${userId}`);
+      req.flash("success", "Successfully added book to your 'Read' Bookshelf.");
       res.redirect(`/books/${bookId}`);
     } else {
       req.flash("error", "This Book has already been shelved!");
@@ -147,10 +146,9 @@ module.exports.removeFromBookshelf = async (req, res) => {
       await user.save();
       req.flash(
         "success",
-        "Successfully removed book from your Completed bookshelf."
+        "Successfully removed book from your 'Read' bookshelf."
       );
       res.redirect(`/books/${bookId}`);
-      // res.redirect(`/users/${userId}`);
     } else {
       req.flash("error", "Book not found in your bookshelf!");
       res.redirect(`/users/${userId}`);

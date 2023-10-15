@@ -20,14 +20,11 @@ router.get(
 );
 
 //Update Book Review
-router.put("/:reviewId", isLoggedIn, catchAsync(reviews.updateReview));
-
 //Delete Book Review
-router.delete(
-  "/:reviewId",
-  isLoggedIn,
-  isReviewAuthor,
-  catchAsync(reviews.deleteReview)
-);
+
+router
+  .route("/:reviewId")
+  .put(isLoggedIn, catchAsync(reviews.updateReview))
+  .delete(isLoggedIn, isReviewAuthor, catchAsync(reviews.deleteReview));
 
 module.exports = router;

@@ -48,8 +48,7 @@ module.exports.passwordChangeSchema = Joi.object({
       new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")
     )
     .required(),
-  confirmPassword: Joi.string().valid(Joi.ref("newPassword")).required(),
-});
+}).unknown();
 
 //Server-side validation for forgot & reset password
 module.exports.resetPasswordSchema = Joi.object({
@@ -59,5 +58,4 @@ module.exports.resetPasswordSchema = Joi.object({
       new RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")
     )
     .required(),
-  confirm: Joi.string().valid(Joi.ref("password")).required(),
-});
+}).unknown();

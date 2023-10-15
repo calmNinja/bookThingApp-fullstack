@@ -13,7 +13,7 @@ const seedDB = async () => {
   await Book.deleteMany({});
 
   //   for (let i = 0; i < books.bbe.length; i++) {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < books.bbe.length; i++) {
     const book = new Book({
       title: `${books.bbe[i].title}`,
       author: `${books.bbe[i].author}`,

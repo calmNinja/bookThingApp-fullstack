@@ -18,49 +18,57 @@ var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 
 //User Registration
-router.get("/register", users.renderRegister);
-
-router.post("/register", validateNewUser, catchAsync(users.register));
+router
+  .route("/register")
+  .get(users.renderRegister)
+  .post(validateNewUser, catchAsync(users.register));
 
 //User Login
-router.get("/login", users.renderLogin);
-
-router.post(
-  "/login",
-  checkReturnTo,
-  passport.authenticate("local", {
-    failureFlash: true,
-    failureRedirect: "/login",
-  }),
-  users.loginUser
-);
+router
+  .route("/login")
+  .get(users.renderLogin)
+  .post(
+    checkReturnTo,
+    passport.authenticate("local", {
+      failureFlash: true,
+      failureRedirect: "/login",
+    }),
+    users.loginUser
+  );
 
 //User Logout
 router.get("/logout", users.logoutUser);
 
-//Add books to User BookShelf
-router.post("/users/:id/bookshelf/:bookId", catchAsync(users.addToBookshelf));
-
-//Remove book from BookShelf
-router.delete(
-  "/users/:id/bookshelf/:bookId",
-  catchAsync(users.removeFromBookshelf)
-);
+//Add/Remove books to User BookShelf
+router
+  .route("/users/:id/bookshelf/:bookId")
+  .post(catchAsync(users.addToBookshelf))
+  .delete(catchAsync(users.removeFromBookshelf));
 
 //Forgot password routes
-router.get("/forgot-password", users.renderForgotPassword);
-router.post("/forgot-password", catchAsync(users.forgotPassword));
+router
+  .route("/forgot-password")
+  .get(users.renderForgotPassword)
+  .post(catchAsync(users.forgotPassword));
 
 //Update password routes
-router.get("/reset/:token", catchAsync(users.renderResetPassword));
-router.post(
-  "/reset/:token",
-  validateResetPassword,
-  catchAsync(users.resetPassword)
-);
+router
+  .route("/reset/:token")
+  .get(catchAsync(users.renderResetPassword))
+  .post(validateResetPassword, catchAsync(users.resetPassword));
 
-//User Profile
-router.get("/users/:id", catchAsync(users.showUserProfile));
+//User Profile routes
+//Show User Profile, Update Edited User Profile, Delete User Account
+router
+  .route("/users/:id")
+  .get(catchAsync(users.showUserProfile))
+  .put(
+    isLoggedIn,
+    isProfileOwner,
+    validateUserProfileEdit,
+    catchAsync(users.updateUserProfile)
+  )
+  .delete(isLoggedIn, isProfileOwner, catchAsync(users.deleteUserAccount));
 
 //Edit User Profile
 router.get(
@@ -70,37 +78,16 @@ router.get(
   users.renderEditUserProfile
 );
 
-//Update User Profile
-router.put(
-  "/users/:id",
-  isLoggedIn,
-  isProfileOwner,
-  validateUserProfileEdit,
-  catchAsync(users.updateUserProfile)
-);
+//Render Change Password Form / Update Changed Password
 
-//Render Change Password Form
-router.get(
-  "/users/:id/changepassword",
-  isLoggedIn,
-  isProfileOwner,
-  users.renderChangePassword
-);
+router
+  .route("/users/:id/changepassword")
+  .get(isLoggedIn, isProfileOwner, users.renderChangePassword)
+  .put(
+    isLoggedIn,
+    isProfileOwner,
+    validatePasswordChange,
+    catchAsync(users.updateChangedPassword)
+  );
 
-//Update Changed Password
-router.put(
-  "/users/:id/change-password",
-  isLoggedIn,
-  isProfileOwner,
-  validatePasswordChange,
-  catchAsync(users.updateChangedPassword)
-);
-
-//Delete User Account
-router.delete(
-  "/users/:id",
-  isLoggedIn,
-  isProfileOwner,
-  catchAsync(users.deleteUserAccount)
-);
 module.exports = router;
