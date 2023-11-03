@@ -3,8 +3,10 @@
 <link rel="stylesheet" href="/stylesheets/starheart-rating.css" />
 <div class="container">
   <div class="book-wrapper">
+    <!-- Book Information -->
     <div class="row justify-content-center">
-      <div class="col-lg-4 mb-3 book-card">
+      <!-- Show Book Cover -->
+      <div class="col-lg-4 mb-3 book-card" id="book-card">
         <div class="card shadow mb-3">
           <img
             src="<%=book.image%>"
@@ -53,7 +55,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 mb-3">
+      <!-- Show Book Description -->
+      <div class="col-lg-8 mb-3" id="book-description">
         <div class="card shadow w-100 mb-3 mx-auto" style="width: 18rem">
           <div class="card-body">
             <h3 class="card-title">
@@ -64,11 +67,20 @@
             <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%></p>
             <h6><%=book_genres%></h6>
             <h4 class="card-title my-1">Description</h4>
-            <p class="card-body"><%=book.description%></p>
+            <div class="content">
+              <p class="card-body" id="expandable-content">
+                <%=book.description%>
+              </p>
+              <!-- Read More and Read Less buttons -->
+              <a href="#" id="read-more-btn" class="btn btn-primary float-end"
+                >Read More</a
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Add/View Reviews -->
     <div class="row my-3">
       <div class="col-lg-6 offset-lg-4">
         <% if (currentUser) { %> <% if (isShelved) { %> <% if (!userHasReviewed)
@@ -195,3 +207,5 @@
     </div>
   </div>
 </div>
+
+<script src="/javascripts/book-show.js"></script>

@@ -9,6 +9,20 @@
   h3 {
     color: #323e41;
   }
+/* Read more begins */
+#expandable-content {
+  overflow: hidden;
+}
+
+#read-more-btn {
+  background-color: #00757a;
+  border: none;
+}
+#read-more-btn:hover {
+  background-color: #005c61;
+}
+/* Read more ends */
+
 
   .review-card a {
     color: rgb(0, 119, 128);
