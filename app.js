@@ -21,6 +21,9 @@ const Book = require("./models/book");
 const Review = require("./models/review");
 const User = require("./models/user");
 
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+
 const booksRoutes = require("./routes/books");
 const reviewsRoutes = require("./routes/reviews");
 const usersRoutes = require("./routes/users");
@@ -40,6 +43,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(mongoSanitize());
 
 const sessionConfig = {
   // store,
@@ -58,6 +62,42 @@ const sessionConfig = {
 //Authentication using passport
 app.use(session(sessionConfig));
 app.use(flash());
+
+const scriptSrcUrls = [
+  "https://stackpath.bootstrapcdn.com/",
+  "https://kit.fontawesome.com/",
+  "https://cdnjs.cloudflare.com/",
+  "https://cdn.jsdelivr.net/",
+];
+const styleSrcUrls = [
+  "https://kit-free.fontawesome.com/",
+  "https://stackpath.bootstrapcdn.com/",
+  "https://fonts.googleapis.com/",
+  "https://use.fontawesome.com/",
+  "https://cdn.jsdelivr.net/",
+];
+
+const fontSrcUrls = ["https://fonts.gstatic.com/"];
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [],
+      scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      workerSrc: ["'self'", "blob:"],
+      imgSrc: [
+        "'self'",
+        "blob:",
+        "data:",
+        "https://images.unsplash.com/",
+        "https://i.gr-assets.com/",
+      ],
+      fontSrc: ["'self'", ...fontSrcUrls],
+      childSrc: ["blob:"],
+    },
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
