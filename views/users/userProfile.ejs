@@ -23,6 +23,7 @@
           src="<%= foundUser.avatar ? foundUser.avatar : process.env.DEFAULT_AVATAR_URL %>"
           class="img-fluid rounded-start"
           alt="user display image"
+          onerror="this.onerror=null; this.src = '<%= process.env.DEFAULT_AVATAR_URL %>'"
         />
       </div>
       <div class="col-md-8">
