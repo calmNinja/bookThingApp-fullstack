@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const Book = require("../models/book");
 const books = require("./books-sample");
-
-mongoose.connect("mongodb://127.0.0.1/bookthingapp");
+// require("dotenv").config();
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1/bookthingapp";
+// mongoose.connect("mongodb://127.0.0.1/bookthingapp");
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {

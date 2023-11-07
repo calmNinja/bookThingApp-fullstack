@@ -4,7 +4,8 @@
   "description": "Book review web app made using vanilla js, Express, node.js and Mongodb. Core features: Sign up/Sign in, Viewing book details, Adding book reviews, User marks book 'to read'",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "dependencies": {
     "async": "^3.2.4",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "ejs-mate": "^4.0.0",

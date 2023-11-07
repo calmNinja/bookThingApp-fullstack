@@ -13,6 +13,7 @@ const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -28,7 +29,10 @@ const booksRoutes = require("./routes/books");
 const reviewsRoutes = require("./routes/reviews");
 const usersRoutes = require("./routes/users");
 
-mongoose.connect("mongodb://127.0.0.1/bookthingapp");
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/bookthing";
+// const dbUrl = "mongodb://localhost:27017/bookthing";
+
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -45,10 +49,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || "tempsecret";
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret,
+  },
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
 const sessionConfig = {
-  // store,
+  store,
   name: "cookieThing",
-  secret: "tempsecret",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
