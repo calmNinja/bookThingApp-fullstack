@@ -1,4 +1,8 @@
-# BookThing - A Book Review App
+<!-- # BookThing - A Book Review App -->
+
+<div align="center">
+  <h1 style="color: white; background-color:#00ab66; font-size: 36px; padding:10px">BookThing - A Book Review App</h1>
+</div>
 
 BookThing is a full-stack web application built with HTML, CSS, Bootstrap, Vanilla JavaScript, Node.js, EJS (Embedded JavaScript), and Express, using MongoDB for data storage. It's hosted on MongoDB Atlas and deployed on Render, with a responsive design for an optimal user experience on all devices.
 
@@ -42,7 +46,42 @@ Check out a live demo of the app [here](https://bookthingapp-tvpg.onrender.com/)
 
 <div align="center">
   <p><strong>Home Page</strong></p>
-  <img src="/screenshots/" alt="Home Page" width="500">
+  <img src="screenshots/homePage_1.png" alt="Home Page" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>Book Gallery</strong></p>
+  <img src="screenshots/bookGallery_2.png" alt="Book Index" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>Live Search</strong></p>
+  <img src="screenshots/liveSearch_3.png" alt="Book Index" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>User Registration</strong></p>
+  <img src="screenshots/register_4.png" alt="Book Index" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>User Profile</strong></p>
+  <img src="screenshots/userProfile_5.png" alt="Book Index" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>Account Recovery</strong></p>
+  <img src="screenshots/accountRecovery_5.png" alt="Book Index" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>Edit Review</strong></p>
+  <img src="screenshots/editReview_6.png" alt="Book Index" width="500">
+</div>
+<br>
+<div align="center">
+  <p><strong>Admin Priveleges</strong></p>
+  <img src="screenshots/adminAcc_7.png" alt="Book Index" width="500">
 </div>
 <br>
 
