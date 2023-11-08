@@ -4,7 +4,8 @@
 <div class="container mb-5">
   <!-- Edit Profile/Change Password buttons -->
   <div class="text-center text-md-end">
-    <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
+    <%if(currentUser && currentUser._id.equals(foundUser._id) || currentUser &&
+    currentUser.isAdmin){%>
     <a href="/users/<%= foundUser._id %>/edit" class="btn btn-sm btn-secondary"
       >Edit Profile</a
     >
@@ -55,7 +56,8 @@
       <div class="col-6 col-md-3 col-lg-2 book-card">
         <div class="card shadow">
           <div class="position-relative">
-            <% if (currentUser && currentUser._id.equals(foundUser._id)) { %>
+            <% if (currentUser && currentUser._id.equals(foundUser._id) ||
+            currentUser && currentUser.isAdmin) { %>
             <form
               action="/users/<%= currentUser._id %>/bookshelf/<%= item.book._id %>?_method=DELETE"
               method="POST"
@@ -123,7 +125,8 @@
   <!-- Delete User Account Button -->
   <div class="mt-5 mb-3 text-center">
     <form action="/users/<%= foundUser._id %>?_method=DELETE" method="POST">
-      <%if(currentUser && currentUser._id.equals(foundUser._id)){%>
+      <%if(currentUser && currentUser._id.equals(foundUser._id) || currentUser
+      && currentUser.isAdmin){%>
       <button class="btn btn-danger">Delete Account</button>
       <% } %>
     </form>
