@@ -9,6 +9,13 @@
   h3 {
     color: #323e41;
   }
+  .book-info {
+    color: #00757a;
+    
+  }
+  .book-info-bolder {
+    font-weight: 800;
+  }
 /* Read more begins */
 #expandable-content {
   overflow: hidden;

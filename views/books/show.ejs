@@ -59,9 +59,10 @@
       <div class="col-lg-8 mb-3" id="book-description">
         <div class="card shadow w-100 mb-3 mx-auto" style="width: 18rem">
           <div class="card-body">
-            <h3 class="card-title">
-              <%=book.title%> by
-              <span class="text-muted"><%=book.author%></span>
+            <h3 class="card-title book-info">
+              <span class="book-info-bolder"><%=book.title%></span>
+              <span class="text-muted">by</span>
+              <%=book.author%>
             </h3>
             <h4><%=book.series%></h4>
             <p id="year">Published: <%=book.year%> | Pages: <%=book.pages%></p>
