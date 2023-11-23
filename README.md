@@ -8,13 +8,16 @@ BookThing is a full-stack web application built with HTML, CSS, Bootstrap, Vanil
 
 ## Table of Contents
 
-- [Features](#⭐-features)
-- [Live Demo](#🚀-live-demo)
-- [Screenshots](#📸-screenshots)
-- [Installation](#🔧-installation)
-- [Attribution](#📜-attribution)
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#live-demo">Live Demo</a></li>
+<li><a href="#screenshots">Screenshots</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#attribution">Attribution</a></li>
+</ul>
+<hr>
 
-## &#x2B50; Features
+## <span id="features">⭐ Features</span>
 
 - **Book Gallery:** Discover popular titles with ratings and reviews.
 
@@ -38,11 +41,11 @@ BookThing is a full-stack web application built with HTML, CSS, Bootstrap, Vanil
 
 - **Password Management:** Change Password or Reset forgotten passwords securely with email confirmation.
 
-## &#x1F680; Live Demo
+## <span id="live-demo">🚀 Live Demo</span>
 
 Check out a live demo of the app [here](https://bookthingapp-tvpg.onrender.com/)
 
-## &#x1F4F8; Screenshots
+## <span id="screenshots">📸 Screenshots</span>
 
 <div align="center">
   <p><strong>Home Page</strong></p>
@@ -85,7 +88,7 @@ Check out a live demo of the app [here](https://bookthingapp-tvpg.onrender.com/)
 </div>
 <br>
 
-## &#x1F527; Installation
+## <span id="installation">🔧 Installation</span>
 
 To run the app locally, follow these steps:
 
@@ -149,7 +152,7 @@ Ensure these services are running; otherwise, the app won't work correctly.
 
 8. Open your web browser and visit http://localhost:3000
 
-## &#x1F4DC; Attribution
+## <span id="attribution">📜 Attribution</span>
 
 The "best_books_ever.json" dataset was retrieved from this [source](https://github.com/scostap/goodreads_bbe_dataset)
 
